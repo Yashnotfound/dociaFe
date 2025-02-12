@@ -4,12 +4,13 @@ import HeroSection from "./components/heroSection";
 import Footer from "./components/footer";
 import heroSectionLogic from "./containers/heroSectionlogic";
 const Homepage = () => {
-  const { value, changeHandler } = heroSectionLogic();
+  const { value, changeHandler, isAuthenticated } = heroSectionLogic();
   return (
     <>
+     
       <Container>
         <Header />
-       <HeroSection value = {value} changeHandler = {changeHandler}/>
+        <HeroSection value = {value} changeHandler = {changeHandler} isAuthenticated = {isAuthenticated}/>
        <Footer />
       </Container>
     </>

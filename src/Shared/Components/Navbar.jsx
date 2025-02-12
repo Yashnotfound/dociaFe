@@ -33,7 +33,7 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         <div className="flex items-center gap-3 md:gap-6 ml-auto">
-          <Link to="/doc-editor" className="hidden md:flex gap-2 link">
+          <Link to="/documents/create" className="hidden md:flex gap-2 link">
             <i className="fi fi-rr-file-edit"></i>
             <p>Write Doc</p>
           </Link>

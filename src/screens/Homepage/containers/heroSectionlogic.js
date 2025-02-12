@@ -1,16 +1,15 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
+import { UserContext } from "../../../App";
 
 const heroSectionLogic = () => {
-    const [value, setValue] = useState('1');
+    const [value, setValue] = useState('general');
     
     const changeHandler = (event, newValue) => {
-        console.log(newValue);
-        if(typeof newValue != 'string')
-        {
-            console.log('Invalid value');
-        }
         setValue(newValue);
     }
-    return {changeHandler, value};
+        const { userAuth: { accessToken } } = useContext(UserContext);
+        const isAuthenticated = accessToken ? true : false;
+
+    return {changeHandler, value, isAuthenticated};
 };
 export default heroSectionLogic;

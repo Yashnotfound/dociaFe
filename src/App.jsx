@@ -6,6 +6,7 @@ import { createContext } from "react";
 import userauthLogic from "./utils/sessionStoreUser"; // Import hook
 import AuthScreen from "./screens/Auth/Index";
 import Homepage from "./screens/Homepage";
+import CreateDocument from "./screens/CreateDoc";
 //import Editor from "./pages/docs/general/create/doc_creator.page";
 //import DocumentView from "./pages/docs/general/displayDocs/documentView.pages";
 
@@ -24,6 +25,7 @@ const App = () => {
             <Route index element = {<Homepage/>}></Route>
             <Route path="/login" element={<AuthScreen type={"login"}/>} />
             <Route path="/signup" element={<AuthScreen type={"signup"}/>} />
+            <Route path = "/documents/create" element = {<CreateDocument />} />
           </Route>
         </Routes>
       </BrowserRouter>
