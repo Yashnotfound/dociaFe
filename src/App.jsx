@@ -4,10 +4,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 //import UserAuthForm from "./pages/Auth/userAuthForm.page";
 import { createContext } from "react";
 import userauthLogic from "./utils/sessionStoreUser"; // Import hook
-import AuthScreen from "./screens/Auth/components/AuthScreen";
-import Homepage from "./screens/Homepage/components/Homepage";
+import AuthScreen from "./screens/Auth/Index";
+import Homepage from "./screens/Homepage";
 //import Editor from "./pages/docs/general/create/doc_creator.page";
-//import Homepage from "./pages/homepage/homepage.page";
 //import DocumentView from "./pages/docs/general/displayDocs/documentView.pages";
 
 export const UserContext = createContext({});

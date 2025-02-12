@@ -7,7 +7,7 @@ const navbarLogic = () => {
   const { userAuth, userAuth: { accessToken, username } = {} } = useContext(UserContext);
 
   // Search Box Visibility State
-  const [searchBoxVisibility, setSearchBoxVisibility] = useState(false);
+  const [searchBoxVisibility, setSearchBoxVisibility] = useState(true);
 
   // User Navigation Panel State
   const [userNavPanel, setUserNavPanel] = useState(false);

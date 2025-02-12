@@ -2,10 +2,10 @@
 import { useState, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
-import AnimationWrapper from "../../../utils/page-animation";
-import InputBox from "../../../Shared/Components/InputBox";
-import userAuthLogic from "../containers/userAuthLogic";
-import { UserContext } from "../../../App";
+import AnimationWrapper from "../../utils/page-animation";
+import InputBox from "../../Shared/Components/InputBox";
+import userAuthLogic from "./containers/userAuthLogic";
+import { UserContext } from "../../App";
 
 const UserAuthScreen = ({ type }) => {
   const { userAuth } = useContext(UserContext);
@@ -48,7 +48,6 @@ const UserAuthScreen = ({ type }) => {
       );
     }
 
-    // Send data to API via the hook
     userAuthThroughServer(serverRoute, formData);
   };
 
