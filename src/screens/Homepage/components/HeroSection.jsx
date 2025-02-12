@@ -7,12 +7,12 @@ import TabPanel from '@mui/lab/TabPanel';
 
 import React from "react";
 
-const HeroSection = (props) => {
+const HeroSection = ({value,changeHandler}) => {
   return (
     <Container>
-        <TabContext value={props.value}>
+        <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <TabList aria-label="lab API tabs example" centered>
+            <TabList onChange={changeHandler} aria-label="lab API tabs example" centered>
             <Tab label="General Docs" value="1" />
             <Tab label="API Docs" value="2" />
             <Tab label="Your Docs" value="3" />

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Paper, Typography } from "@mui/material";
 
-const header = () => {
+const Header = () => {
   return (
     <Paper elevation={3} sx={{ padding: 2, marginTop: 5, flexGrow: 1 }}>
     <Typography variant="h3" align="center" fontFamily={"-moz-initial"}>
@@ -11,4 +11,4 @@ const header = () => {
   )
 }
 
-export default header
+export default Header
