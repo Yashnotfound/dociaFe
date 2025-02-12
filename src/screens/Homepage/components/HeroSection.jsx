@@ -6,6 +6,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 
 import React from "react";
+import CardHolder from "./heroSectionComponents/CardContainer";
 
 const HeroSection = ({value,changeHandler}) => {
   return (
@@ -18,7 +19,7 @@ const HeroSection = ({value,changeHandler}) => {
             <Tab label="Your Docs" value="3" />
             </TabList>
         </Box>
-        <TabPanel value="1">Item One</TabPanel>
+        <TabPanel value="1">{<CardHolder />}</TabPanel>
         <TabPanel value="2">Item Two</TabPanel>
         <TabPanel value="3">Item Three</TabPanel>
         </TabContext>
