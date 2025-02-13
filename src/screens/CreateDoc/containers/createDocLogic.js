@@ -11,18 +11,20 @@ export const createDocLogic = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
-  const staticImageUrl = "https://picsum.photos/300/160"; 
-
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDescriptionChange = (e) => setDescription(e.target.value);
   const handleEditorChange = (text) => setContent(text);
+  const staticImageUrl = "https://picsum.photos/300/160"; 
 
   const { userAuth } = useContext(UserContext);
   const accessToken = userAuth?.accessToken;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!title || !description || !content) {
+        setError("All fields are required.");
+        return;
+    }
     setLoading(true);
 
     const payload = {
@@ -40,7 +42,6 @@ export const createDocLogic = () => {
         },
       });
 
-      console.log("Document created:", response.data); 
       toast.success("Document created successfully!"); 
       setLoading(false);
       setTimeout(() => navigate("/"), 1000);
@@ -49,7 +50,9 @@ export const createDocLogic = () => {
       console.error("Error submitting document:", error);
       setError("There was an issue creating the document.");
       toast.error("Failed to create document!");
-      setLoading(false);
+    }
+    finally{
+        setLoading(false);
     }
   };
 

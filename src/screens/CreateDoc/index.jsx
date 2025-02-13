@@ -11,7 +11,7 @@ import { Toaster } from "react-hot-toast";
 const CreateDocument = () => {
   debugger;
   const { userAuth } = useContext(UserContext);
-  const accessToken = userAuth?.accessToken; // ✅ Fix possible undefined error
+  const accessToken = userAuth?.accessToken;
   if (!accessToken) {
     return <Navigate to="/login" />;
   }

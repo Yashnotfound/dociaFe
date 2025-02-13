@@ -2,15 +2,16 @@ import { Container,} from "@mui/material";
 import Header from "./components/header";
 import HeroSection from "./components/heroSection";
 import Footer from "./components/footer";
-import heroSectionLogic from "./containers/heroSectionlogic";
+import heroSectionLogic from "./containers/heroSectionLogic";
+import AnimationWrapper from "../../utils/page-animation";
 const Homepage = () => {
-  const { value, changeHandler, isAuthenticated } = heroSectionLogic();
+  const { value, tabChangeHandler, isAuthenticated } = heroSectionLogic();
   return (
     <>
-     
       <Container>
+        <AnimationWrapper />
         <Header />
-        <HeroSection value = {value} changeHandler = {changeHandler} isAuthenticated = {isAuthenticated}/>
+        <HeroSection value = {value} tabChangeHandler = {tabChangeHandler} isAuthenticated = {isAuthenticated}/>
        <Footer />
       </Container>
     </>
