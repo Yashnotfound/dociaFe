@@ -1,13 +1,17 @@
-import { useState, useContext } from "react";
+import { useState, useContext,useEffect } from "react";
 import {UserContext} from "../../../App";
 
 const heroSectionLogic = () => {
     const {userAuth:{role} = {}} = useContext(UserContext);
-    const [value, setValue] = useState(`${role==="ADMIN"?"pending":"general"}`);
-    const tabChangeHandler = (event, newValue) => {
-        setValue(newValue);
-    }
-
+    const [value, setValue] = useState(() => {
+        return localStorage.getItem('selectedTab') || (role === "ADMIN" ? "pending" : "general");
+      });
+    useEffect(() => {
+        localStorage.setItem('selectedTab', value);
+      }, [value]);
+    
+      const tabChangeHandler = (event, newValue) => {
+        setValue(newValue);}
 
     return {tabChangeHandler, value};
 };
