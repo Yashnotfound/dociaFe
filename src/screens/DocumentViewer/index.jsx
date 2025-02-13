@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { Box, CircularProgress, Paper } from '@mui/material'
 import { documentViewLogic } from './containers/documentViewLogic'
 import MarkdownViewer from './components/MarkdownViewer'
+import CommentsBar from './components/CommentsBar'
 
 const DocumentViewer = () => {
     const {id} = useParams();
@@ -27,6 +28,7 @@ const DocumentViewer = () => {
             </Typography>
             <MarkdownViewer markdown={document.content}/>
           </Paper>
+          <CommentsBar documentId={id} />
         </Box>
   )
 }
