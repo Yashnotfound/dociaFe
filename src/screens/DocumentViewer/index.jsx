@@ -14,6 +14,7 @@ import { UserContext } from "../../App";
 import { useContext } from "react";
 import { handleReviewDocument } from "./api/reviewDocumentAPI";
 import {Toaster} from "react-hot-toast";
+import ApiContractViewer from "./components/ApiContractViewer";
 
 
 const DocumentViewer = () => {
@@ -42,6 +43,7 @@ const DocumentViewer = () => {
   return (
     <Box padding={2}>
       <Toaster />
+      {/* Document Title and Status */}
       <div>
         <Typography
           variant="h4"
@@ -62,7 +64,13 @@ const DocumentViewer = () => {
         <Typography variant="subtitle1" color="textSecondary" paragraph>
           {document.author} | {document.createdAt}
         </Typography>
+
+      {
+        document.type == "GENERAL"?
         <MarkdownViewer markdown={document.content} />
+        :
+        <ApiContractViewer content={document.content}/>
+      }
       </Paper>
 
        {/* Admin buttons: Approve/Reject */}

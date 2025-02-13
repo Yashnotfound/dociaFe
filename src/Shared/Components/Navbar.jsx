@@ -33,13 +33,13 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         <div className="flex items-center gap-3 md:gap-6 ml-auto">
-          <Link to="/documents/create" className="hidden md:flex gap-2 link">
+          <Link to="/documents/doc/create" className="hidden md:flex gap-2 link">
             <i className="fi fi-rr-file-edit"></i>
             <p>Write Doc</p>
           </Link>
-          <Link to="/api-editor" className="hidden md:flex gap-2 link">
+          <Link to="/documents/api-contract/create" className="hidden md:flex gap-2 link">
             <i className="fi fi-rr-api"></i>
-            <p>Make API Doc</p>
+            <p>Generate API Contract</p>
           </Link>
 
           {/* User Menu */}

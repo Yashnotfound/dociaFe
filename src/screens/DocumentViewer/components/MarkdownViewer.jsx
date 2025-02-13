@@ -1,10 +1,9 @@
 import React from "react";
 import showdown from "showdown";
 import showdownHighlight from "showdown-highlight";
-import "highlight.js/styles/github.css"; // Simple & readable syntax highlighting
+import "highlight.js/styles/github.css";
 import { Box } from "@mui/material";
 
-// Initialize Showdown with all features enabled
 const converter = new showdown.Converter({
   tables: true,
   tasklists: true,

@@ -9,7 +9,7 @@ export const useCardHolderLogic = ({ type }) => {
   const { userAuth:{userId} = {} } = useContext(UserContext);
   const routes = {
     "general": "/api/documents/find?type=GENERAL&status=APPROVED",
-    "api": "/api/documents/find?type=API_CONTRACT",
+    "api": "/api/documents/find?type=API_CONTRACT&status=APPROVED",
     "user": `/api/documents/find?userId=${userId}`,
     "pending": "/api/documents/find?status=PENDING"
   }

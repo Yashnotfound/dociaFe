@@ -8,6 +8,7 @@ import AuthScreen from "./screens/Auth/Index";
 import Homepage from "./screens/Homepage";
 import CreateDocument from "./screens/CreateDoc";
 import DocumentViewer from "./screens/DocumentViewer";
+import ApiContractViewer from "./screens/DocumentViewer/components/ApiContractViewer";
 
 export const UserContext = createContext({});
 
@@ -24,7 +25,8 @@ const App = () => {
             <Route index element = {<Homepage/>}></Route>
             <Route path="/login" element={<AuthScreen type={"login"}/>} />
             <Route path="/signup" element={<AuthScreen type={"signup"}/>} />
-            <Route path = "/documents/create" element = {<CreateDocument />} />
+            <Route path = "/documents/doc/create" element = {<CreateDocument type="GENERAL"/>} />
+            <Route path = "/documents/api-contract/create" element = {<CreateDocument type="API_CONTRACT"/>} />
             <Route path = "/documents/:id" element = {<DocumentViewer/>} />
           </Route>
         </Routes>
