@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import {UserContext} from "../../../App";
 
 const heroSectionLogic = () => {
-    const [value, setValue] = useState('general');
-    
+    const {userAuth:{role} = {}} = useContext(UserContext);
+    const [value, setValue] = useState(`${role==="ADMIN"?"pending":"general"}`);
     const tabChangeHandler = (event, newValue) => {
         setValue(newValue);
     }

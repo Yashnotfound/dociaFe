@@ -11,6 +11,7 @@ export const useCardHolderLogic = ({ type }) => {
     "general": "/api/documents/find?type=GENERAL",
     "api": "/api/documents/find?type=API_CONTRACT",
     "user": `/api/documents/find?userId=${userId}`,
+    "pending": "/api/documents/find?status=PENDING"
   }
   useEffect(() => {
     const fetchDocuments = async () => {

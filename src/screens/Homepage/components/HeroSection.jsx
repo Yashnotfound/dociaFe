@@ -10,12 +10,13 @@ import { UserContext } from "../../../App";
 import {useContext} from "react";
 
 const HeroSection = ({value, tabChangeHandler}) => {
-    const {userAuth:{accessToken} = {}} = useContext(UserContext);
+    const {userAuth:{accessToken,role} = {}} = useContext(UserContext);
   return (
     <Container>
         <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <TabList onChange={tabChangeHandler} aria-label="lab API tabs example" centered>
+            {accessToken&&role==="ADMIN"?<Tab label="Pending Requests" value="pending" />:null}
             <Tab label="General Docs" value="general" />
             <Tab label="API Contracts" value="api" />
             {accessToken?<Tab label="Your Docs" value="user" />:null}

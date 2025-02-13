@@ -70,7 +70,7 @@ const CommentsBar = ({ documentId }) => {
             <ListItem key={c.id} divider>
               <ListItemText
                 primary={c.content}
-                secondary={`${c.author} at ${c.createdAt}`}
+                secondary={`${c.author} at ${c.createdAt.split('T')[0] + " " + c.createdAt.split('T')[1].substring(0, 8)}`}
                 sx={{ wordWrap: "break-word" }}
               />
             </ListItem>
