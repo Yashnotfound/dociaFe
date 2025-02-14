@@ -2,7 +2,6 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
 export const handleReviewDocument = async (id, status, accessToken) => {
-    debugger;
   try {
     const data = { status };
 

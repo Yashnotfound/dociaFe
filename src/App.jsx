@@ -1,19 +1,18 @@
 // src/App.js
 import Navbar from "./Shared/Components/Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-//import UserAuthForm from "./pages/Auth/userAuthForm.page";
 import { createContext } from "react";
-import userauthLogic from "./utils/sessionStoreUser"; // Import hook
+import userauthLogic from "./utils/sessionStoreUser";
 import AuthScreen from "./screens/Auth/Index";
 import Homepage from "./screens/Homepage";
 import CreateDocument from "./screens/CreateDoc";
 import DocumentViewer from "./screens/DocumentViewer";
-import ApiContractViewer from "./screens/DocumentViewer/components/ApiContractViewer";
+import EditDocument from "./screens/EditDoc/index";
 
 export const UserContext = createContext({});
 
 const App = () => {
-  const { userAuth, setUserAuth } = userauthLogic(); // Use the custom hook
+  const { userAuth, setUserAuth } = userauthLogic();
 
   return (
     <UserContext.Provider value={{ userAuth, setUserAuth }}>
@@ -28,6 +27,7 @@ const App = () => {
             <Route path = "/documents/doc/create" element = {<CreateDocument type="GENERAL"/>} />
             <Route path = "/documents/api-contract/create" element = {<CreateDocument type="API_CONTRACT"/>} />
             <Route path = "/documents/:id" element = {<DocumentViewer/>} />
+            <Route path = "/documents/edit" element = {<EditDocument />} />
           </Route>
         </Routes>
       </BrowserRouter>

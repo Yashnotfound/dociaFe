@@ -1,4 +1,3 @@
-// src/components/UserAuthForm.js
 import { useState, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
@@ -12,19 +11,16 @@ const UserAuthScreen = ({ type }) => {
   const { userAuthThroughServer } = userAuthLogic();
   const isLogin = type.toLowerCase() === "login";
 
-  // State for input fields
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
   });
 
-  // Handle input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     let serverRoute = isLogin ? "/login" : "/signup";
@@ -35,7 +31,6 @@ const UserAuthScreen = ({ type }) => {
 
     const { username, email, password } = formData;
 
-    // Validation checks
     if (!isLogin && username.length < 3) {
       return toast.error("Username must be at least 3 characters long");
     }

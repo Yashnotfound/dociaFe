@@ -13,7 +13,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { UserContext } from "../../App";
 import { useContext } from "react";
 import { handleReviewDocument } from "./api/reviewDocumentAPI";
-import {Toaster} from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import ApiContractViewer from "./components/ApiContractViewer";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -23,16 +23,17 @@ import { useNavigate } from "react-router-dom";
 
 const DocumentViewer = () => {
   const { id } = useParams();
-  const document = documentViewLogic({ id });
-  const { userAuth: { role,accessToken,username } = {} } = useContext(UserContext);
-  const isAdmin = (role === "ADMIN");
-  const isAuthor = ( document && document.author === username);
+  const document = documentViewLogic({id});
+  const { userAuth: { role, accessToken, username } = {} } =
+    useContext(UserContext);
+  const isAdmin = role === "ADMIN";
+  const isAuthor = document && document.author === username;
   const navigate = useNavigate();
   const handleReview = (status) => {
     console.log("Document Approved");
-    handleReviewDocument(id, status ,accessToken);
+    handleReviewDocument(id, status, accessToken);
   };
-  const deleteHandler = async() => {
+  const deleteHandler = async () => {
     try {
       const response = await axios.delete(
         `http://localhost:8080/api/documents/${id}`,
@@ -44,7 +45,7 @@ const DocumentViewer = () => {
     } catch (error) {
       toast.error("Failed to delete document!");
     }
-};
+  };
 
   if (!document) {
     return (
@@ -62,7 +63,7 @@ const DocumentViewer = () => {
   return (
     <Box padding={2}>
       <Toaster />
-      {/* Document Title and Status */}
+
       <div>
         <Typography
           variant="h4"
@@ -77,6 +78,52 @@ const DocumentViewer = () => {
             style={{ marginLeft: "10px" }}
           />
         </Typography>
+        <Box display="flex" justifyContent="flex-end" marginTop={2} marginBottom={2} gap={1}>
+          {/* Show Approve or Reject based on status */}
+          {isAdmin && document.status !== "APPROVED" && (
+            <Button
+              variant="contained"
+              color="success"
+              startIcon={<CheckIcon />}
+              onClick={() => handleReview("APPROVED")}
+            >
+              Approve
+            </Button>
+          )}
+
+          {isAdmin && document.status !== "REJECTED" && (
+            <Button
+              variant="contained"
+              color="error"
+              startIcon={<CloseIcon />}
+              onClick={() => handleReview("REJECTED")}
+            >
+              Reject
+            </Button>
+          )}
+
+          {/* Edit and Delete buttons for Author */}
+          {isAuthor && (
+            <>
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<EditIcon />}
+              >
+                Edit
+              </Button>
+
+              <Button
+                variant="contained"
+                color="secondary"
+                startIcon={<DeleteIcon />}
+                onClick={deleteHandler}
+              >
+                Delete
+              </Button>
+            </>
+          )}
+        </Box>
       </div>
 
       <Paper elevation={3} sx={{ padding: 2 }}>
@@ -84,46 +131,12 @@ const DocumentViewer = () => {
           {document.author} | {document.createdAt}
         </Typography>
 
-      {
-        document.type == "GENERAL"?
-        <MarkdownViewer markdown={document.content} />
-        :
-        <ApiContractViewer content={document.content}/>
-      }
+        {document.type == "GENERAL" ? (
+          <MarkdownViewer markdown={document.content} />
+        ) : (
+          <ApiContractViewer content={document.content} />
+        )}
       </Paper>
-
-       {/* Admin buttons: Approve/Reject */}
-       {isAdmin && (
-        <Box display="flex" justifyContent="flex-end" marginTop={2}>
-          <Button
-            variant="contained"
-            color="success"
-            startIcon={<CheckIcon />}
-            onClick={()=>handleReview("APPROVED")}
-            style={{ marginRight: "10px" }}
-          >
-            Approve
-          </Button>
-          <Button
-            variant="contained"
-            color="error"
-            startIcon={<CloseIcon />}
-            onClick={()=>handleReview("REJECTED")}
-          >
-            Reject
-          </Button>
-        </Box>
-      )}
-      {(isAdmin || isAuthor) && (
-         <Box display="flex" justifyContent="flex-end" marginTop={2} gap={1}>
-         <Button variant="contained" color="primary" startIcon={<EditIcon />}>
-           Edit
-         </Button>
-         <Button variant="contained" color="secondary" startIcon={<DeleteIcon />} onClick={deleteHandler}>
-           Delete
-         </Button>
-       </Box>
-      )}
 
       <CommentsBar documentId={id} />
     </Box>

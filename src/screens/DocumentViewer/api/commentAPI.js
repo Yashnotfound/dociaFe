@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8080/api/documents";
+const API_BASE_URL = import.meta.env.VITE_APP_URL;
 
 export const fetchComments = async (documentId) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/${documentId}/comments`);
+    const response = await axios.get(`${API_BASE_URL}documents/${documentId}/comments`);
     return response.data;
   } catch (error) {
     console.error("Error fetching comments:", error);
@@ -18,7 +18,7 @@ export const postComment = async (documentId, text, accessToken) => {
     const req = {
         content : text
     }
-    const response =  await axios.post(`${API_BASE_URL}/${documentId}/comments`,
+    const response =  await axios.post(`${API_BASE_URL}documents/${documentId}/comments`,
       req,
     {
         headers: {

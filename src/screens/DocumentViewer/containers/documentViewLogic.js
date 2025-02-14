@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import {toast} from 'react-hot-toast';
 
-export const documentViewLogic = ({ id }) => {
+export const documentViewLogic = ({id}) => {
     const [document, setDocument] = useState(null);
 
     useEffect(() => {
@@ -10,7 +11,7 @@ export const documentViewLogic = ({ id }) => {
                 const response = await axios.get(`http://localhost:8080/api/documents/${id}`);
                 setDocument(response.data);
             } catch (err) {
-                console.error("Error fetching document:", err);
+               toast.error("Failed to fetch document.");
             }
         };
         

@@ -55,13 +55,11 @@ const CommentsBar = ({ documentId }) => {
         </Box>
       )}
 
-      {/* Loading & Error Handling */}
       {loading && (
         <CircularProgress sx={{ display: "block", margin: "10px auto" }} />
       )}
       {error && <Typography color="error">{error}</Typography>}
 
-      {/* Comments List */}
       <List sx={{ marginTop: 2 }}>
         {comments.length === 0 ? (
           <Typography color="textSecondary">No comments yet.</Typography>

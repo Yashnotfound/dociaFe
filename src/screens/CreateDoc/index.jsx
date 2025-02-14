@@ -13,7 +13,6 @@ import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import AnimationWrapper from "../../utils/page-animation";
 import { Toaster } from "react-hot-toast";
-import Markdown from "react-markdown";
 import MarkdownEditor from "./components/MarkdownEditor";
 import UploadYaml from "./components/UploadYaml";
 
@@ -35,7 +34,7 @@ const CreateDocument = ({type}) => {
     handleEditorChange,
     handleSubmit,
     onUpload,
-  } = createDocLogic({type});
+  } = createDocLogic(type);
 
   return (
     <AnimationWrapper>

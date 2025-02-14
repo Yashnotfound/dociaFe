@@ -38,15 +38,14 @@ export const createDocLogic = (type) => {
     }
 
     setLoading(true);
-
     const payload = {
       title,
       description,
       content,
-      type : type.type
+      type : type
     };
     console.log
-
+    
     try {
       await axios.post("http://localhost:8080/api/documents", payload, {
         headers: {

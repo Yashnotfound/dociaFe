@@ -1,4 +1,3 @@
-// Desc: Get the color of the status based on the status value
 export const getStatusColor = (status) => {
     switch (status) {
         case "PENDING":
