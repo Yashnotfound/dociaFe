@@ -15,17 +15,36 @@ import { useContext } from "react";
 import { handleReviewDocument } from "./api/reviewDocumentAPI";
 import {Toaster} from "react-hot-toast";
 import ApiContractViewer from "./components/ApiContractViewer";
-
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const DocumentViewer = () => {
   const { id } = useParams();
   const document = documentViewLogic({ id });
-  const { userAuth: { role,accessToken } = {} } = useContext(UserContext);
+  const { userAuth: { role,accessToken,username } = {} } = useContext(UserContext);
   const isAdmin = (role === "ADMIN");
+  const isAuthor = ( document && document.author === username);
+  const navigate = useNavigate();
   const handleReview = (status) => {
     console.log("Document Approved");
     handleReviewDocument(id, status ,accessToken);
   };
+  const deleteHandler = async() => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8080/api/documents/${id}`,
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+      );
+      toast.success("Document deleted successfully!");
+      setTimeout(() => navigate("/"), 2000);
+      return response;
+    } catch (error) {
+      toast.error("Failed to delete document!");
+    }
+};
 
   if (!document) {
     return (
@@ -94,6 +113,16 @@ const DocumentViewer = () => {
             Reject
           </Button>
         </Box>
+      )}
+      {(isAdmin || isAuthor) && (
+         <Box display="flex" justifyContent="flex-end" marginTop={2} gap={1}>
+         <Button variant="contained" color="primary" startIcon={<EditIcon />}>
+           Edit
+         </Button>
+         <Button variant="contained" color="secondary" startIcon={<DeleteIcon />} onClick={deleteHandler}>
+           Delete
+         </Button>
+       </Box>
       )}
 
       <CommentsBar documentId={id} />

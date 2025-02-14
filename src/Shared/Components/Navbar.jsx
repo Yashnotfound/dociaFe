@@ -8,15 +8,15 @@ import navbarLogic from "../Containers/navbarLogic";
 import { Typography } from "@mui/material";
 
 const Navbar = () => {
-  const { 
-    userAuth, 
-    accessToken, 
-    username, 
-    searchBoxVisibility, 
-    toggleSearchBox, 
-    userNavPanel, 
-    handleUserNavPanel, 
-    handleBlur 
+  const {
+    userAuth,
+    accessToken,
+    username,
+    searchBoxVisibility,
+    toggleSearchBox,
+    userNavPanel,
+    handleUserNavPanel,
+    handleBlur,
   } = navbarLogic();
 
   return (
@@ -25,25 +25,37 @@ const Navbar = () => {
         {/* Logo */}
         <Link to="/" className="flex-col gap-2 h-12 mb-3">
           <img src={logo} alt="Logo" className="w-full mt-1" />
-        <Typography variant="inherit" fontFamily={"fantasy"}>Docia</Typography>
+          <Typography variant="inherit" fontFamily={"fantasy"}>
+            Docia
+          </Typography>
         </Link>
 
         {/* Search Bar */}
-        <SearchBar searchBoxVisibility={searchBoxVisibility} toggleSearchBox={toggleSearchBox} />
+        <SearchBar
+          searchBoxVisibility={searchBoxVisibility}
+          toggleSearchBox={toggleSearchBox}
+        />
 
-        {/* Navigation Links */}
-        <div className="flex items-center gap-3 md:gap-6 ml-auto">
-          <Link to="/documents/doc/create" className="hidden md:flex gap-2 link">
-            <i className="fi fi-rr-file-edit"></i>
-            <p>Write Doc</p>
-          </Link>
-          <Link to="/documents/api-contract/create" className="hidden md:flex gap-2 link">
-            <i className="fi fi-rr-api"></i>
-            <p>Generate API Contract</p>
-          </Link>
+          {/* Navigation Links */}
+          <div className="flex items-center gap-3 md:gap-6 ml-auto">
+            <Link
+              to="/documents/doc/create"
+              className="flex items-center gap-2 link"
+            >
+              <i className="fi fi-rr-file-edit text-lg"></i>
+              <p className="hidden md:block">Document</p>
+            </Link>
+            <Link
+              to="/documents/api-contract/create"
+              className="flex items-center gap-2 link"
+            >
+              <i className="fi fi-rr-api text-lg"></i>
+              <p className="hidden md:block">API</p>
+            </Link>
+          </div>
 
           {/* User Menu */}
-          <UserMenu 
+          <UserMenu
             userAuth={userAuth}
             accessToken={accessToken}
             username={username}
@@ -51,7 +63,6 @@ const Navbar = () => {
             handleUserNavPanel={handleUserNavPanel}
             handleBlur={handleBlur}
           />
-        </div>
       </nav>
 
       {/* Content */}

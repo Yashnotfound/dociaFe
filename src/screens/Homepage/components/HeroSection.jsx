@@ -22,7 +22,9 @@ const HeroSection = ({value, tabChangeHandler}) => {
             {accessToken?<Tab label="Your Docs" value="user" />:null}
             </TabList>
         </Box>
-        <TabPanel value = {value}>{<CardHolder type = {value} />}</TabPanel>
+        {
+          <TabPanel value = {value}>{<CardHolder type = {value} />}</TabPanel>
+        }
         </TabContext>
     </Container>
   );

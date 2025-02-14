@@ -15,7 +15,10 @@ const CardHolder = ({ type }) => {
       alignItems="center"
       height="100vh"
     >
-      <Typography variant="h4" gutterBottom> No docs Found</Typography>
+      <Typography variant="h4" gutterBottom>
+        {" "}
+        No docs Found
+      </Typography>
     </Box>
   ) : (
     <>
@@ -34,23 +37,43 @@ const CardHolder = ({ type }) => {
                   height: "100%",
                   boxShadow: 3,
                   overflow: "hidden",
+                  borderRadius: 3,
+                  position: "relative",
+                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                  borderLeft: `6px solid ${
+                    item.type === "GENERAL" ? "#1976D2" : "#D32F2F"
+                  }`,
+
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                    boxShadow: 6,
+                  },
                 }}
               >
+                {/* Animated Image */}
                 <CardMedia
                   component="img"
                   sx={{
                     height: 160,
                     objectFit: "cover",
+                    transition: "transform 0.3s ease",
+                    "&:hover": {
+                      transform: "scale(1.1)",
+                    },
                   }}
                   image={item.image || "https://picsum.photos/300/160"}
                   alt={item.title}
                 />
+
                 <CardContent
                   sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}
                 >
+                  {/* Title */}
                   <Typography variant="h6" gutterBottom>
                     {item.title}
                   </Typography>
+
+                  {/* Description */}
                   <Typography
                     variant="body2"
                     color="textSecondary"
@@ -65,16 +88,12 @@ const CardHolder = ({ type }) => {
                     {item.description}
                   </Typography>
 
-                  {/* Author and Created On */}
-                  <div>
+                  {/* Author & Date */}
+                  <Box sx={{ mt: "auto" }}>
                     <Typography
                       variant="body2"
                       color="textSecondary"
-                      sx={{
-                        fontSize: "0.85rem",
-                        fontWeight: 500,
-                        marginBottom: 0.5,
-                      }}
+                      sx={{ fontSize: "0.85rem", fontWeight: 500, mb: 0.5 }}
                       gutterBottom
                     >
                       {`By ${item.author}`}
@@ -86,7 +105,7 @@ const CardHolder = ({ type }) => {
                     >
                       {item.createdAt}
                     </Typography>
-                  </div>
+                  </Box>
                 </CardContent>
               </Card>
             </Link>

@@ -7,7 +7,6 @@ import {
   CardMedia,
   Box,
 } from "@mui/material";
-import MDEditor from "@uiw/react-md-editor";
 import { createDocLogic } from "../CreateDoc/containers/createDocLogic";
 import { UserContext } from "../../App";
 import { useContext } from "react";
