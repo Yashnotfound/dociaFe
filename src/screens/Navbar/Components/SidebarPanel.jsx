@@ -1,7 +1,6 @@
-// src/components/UserNavigationPanel.js
-import AnimationWrapper from "../../utils/page-animation";
+import AnimationWrapper from "../../../navigation/hoc/page-animation";
 import { Link } from "react-router-dom";
-import sidebarLogic from "../Containers/sidebarLogic"; // Import hook
+import sidebarLogic from "../Containers/sidebarLogic";
 
 const UserNavigationPanel = () => {
   const { username, signOutUser } = sidebarLogic();

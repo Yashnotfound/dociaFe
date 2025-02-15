@@ -1,9 +1,9 @@
 import { Container,} from "@mui/material";
-import Header from "./components/header";
-import HeroSection from "./components/heroSection";
-import Footer from "./components/footer";
-import heroSectionLogic from "./containers/heroSectionLogic";
-import AnimationWrapper from "../../utils/page-animation";
+import Header from "./header";
+import HeroSection from "./heroSection";
+import Footer from "./footer";
+import heroSectionLogic from "../containers/heroSectionLogic";
+import AnimationWrapper from "../../../navigation/hoc/page-animation";
 const Homepage = () => {
   const { value, tabChangeHandler, isAuthenticated } = heroSectionLogic();
   return (

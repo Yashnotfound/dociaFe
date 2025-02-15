@@ -1,10 +1,10 @@
 import { useState, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
-import AnimationWrapper from "../../utils/page-animation";
-import InputBox from "../../Shared/Components/InputBox";
-import userAuthLogic from "./containers/userAuthLogic";
-import { UserContext } from "../../App";
+import AnimationWrapper from "../../../navigation/hoc/page-animation";
+import InputBox from "../../Navbar/Components/InputBox";
+import userAuthLogic from "../containers/userAuthLogic";
+import { UserContext } from "../../../App";
 
 const UserAuthScreen = ({ type }) => {
   const { userAuth } = useContext(UserContext);

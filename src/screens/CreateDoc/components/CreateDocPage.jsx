@@ -7,16 +7,16 @@ import {
   CardMedia,
   Box,
 } from "@mui/material";
-import { createDocLogic } from "../CreateDoc/containers/createDocLogic";
-import { UserContext } from "../../App";
+import { createDocLogic } from "../containers/createDocLogic";
+import { UserContext } from "../../../App";
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import AnimationWrapper from "../../utils/page-animation";
+import AnimationWrapper from "../../../navigation/hoc/page-animation";
 import { Toaster } from "react-hot-toast";
-import MarkdownEditor from "./components/MarkdownEditor";
-import UploadYaml from "./components/UploadYaml";
+import MarkdownEditor from "./MarkdownEditor";
+import UploadYaml from "./UploadYaml";
 
-const CreateDocument = ({type}) => {
+const CreateDocPage = ({type}) => {
   const { userAuth } = useContext(UserContext);
   const accessToken = userAuth?.accessToken;
   const staticImageUrl = "https://random.imagecdn.app/500/150"
@@ -108,4 +108,4 @@ const CreateDocument = ({type}) => {
   );
 };
 
-export default CreateDocument;
+export default CreateDocPage;

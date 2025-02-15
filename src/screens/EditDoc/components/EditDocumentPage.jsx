@@ -1,6 +1,6 @@
 import React from 'react'
 
-const EditDocument = () => {
+const EditDocumentPage = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const EditDocument = () => {
   )
 }
 
-export default EditDocument
+export default EditDocumentPage;

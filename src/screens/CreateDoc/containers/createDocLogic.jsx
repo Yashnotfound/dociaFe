@@ -55,7 +55,7 @@ export const createDocLogic = (type) => {
       });
 
       toast.success("Document created successfully!");
-      setTimeout(() => navigate("/"), 1000);
+      setTimeout(() => navigate("/"), 2000);
     } catch (error) {
       console.error("Error submitting document:", error);
       setError("There was an issue creating the document.");

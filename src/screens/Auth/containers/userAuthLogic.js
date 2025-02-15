@@ -1,7 +1,7 @@
 import {useContext} from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { storeInSession } from "../../../utils/session";
+import { storeInSession } from "./session";
 import { UserContext } from "../../../App";
 
 const userAuthLogic = () => {

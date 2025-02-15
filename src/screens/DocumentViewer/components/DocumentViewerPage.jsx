@@ -2,26 +2,26 @@ import { Typography } from "@mui/material";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { Box, CircularProgress, Paper } from "@mui/material";
-import { documentViewLogic } from "./containers/documentViewLogic";
-import MarkdownViewer from "./components/MarkdownViewer";
-import CommentsBar from "./components/CommentsBar";
+import { documentViewLogic } from "../containers/documentViewLogic";
+import MarkdownViewer from "./MarkdownViewer";
+import CommentsBar from "./CommentsBar";
 import Chip from "@mui/material/Chip";
-import { getStatusColor } from "./containers/getStatusColor";
+import { getStatusColor } from "../containers/getStatusColor";
 import Button from "@mui/material/Button";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import { UserContext } from "../../App";
+import { UserContext } from "../../../App";
 import { useContext } from "react";
-import { handleReviewDocument } from "./api/reviewDocumentAPI";
+import { handleReviewDocument } from "../api/reviewDocumentAPI";
 import { Toaster } from "react-hot-toast";
-import ApiContractViewer from "./components/ApiContractViewer";
+import ApiContractViewer from "./ApiContractViewer";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-const DocumentViewer = () => {
+const DocumentViewerPage = () => {
   const { id } = useParams();
   const document = documentViewLogic({id});
   const { userAuth: { role, accessToken, username } = {} } =
@@ -142,4 +142,4 @@ const DocumentViewer = () => {
     </Box>
   );
 };
-export default DocumentViewer;
+export default DocumentViewerPage;

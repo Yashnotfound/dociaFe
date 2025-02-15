@@ -1,7 +1,7 @@
 // src/hooks/useUserNavigation.js
 import { useContext } from "react";
-import { UserContext } from "../../App";
-import { removeFromSession } from "../../utils/session";
+import { UserContext } from "../../../App";
+import { removeFromSession } from "../../Auth/containers/session";
 
 const useUserNavigation = () => {
   const { userAuth: { username, role }, setUserAuth } = useContext(UserContext);

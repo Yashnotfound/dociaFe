@@ -1,6 +1,6 @@
 // src/hooks/useNavbarLogic.js
 import { useState, useContext } from "react";
-import { UserContext } from "../../App";
+import { UserContext } from "../../../App";
 
 const navbarLogic = () => {
   // Authentication Data from Context
