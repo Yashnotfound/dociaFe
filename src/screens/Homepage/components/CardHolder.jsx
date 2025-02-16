@@ -21,7 +21,6 @@ const CardHolder = ({ type }) => {
     </Box>
   ) : (
     <>
-      <Toaster />
       <Grid container spacing={2} alignItems="stretch">
         {items.map((item) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
@@ -54,16 +53,11 @@ const CardHolder = ({ type }) => {
                   />
                 </Box>
 
-                {/* Animated Image */}
                 <CardMedia
                   component="img"
                   sx={{
                     height: 160,
                     objectFit: "cover",
-                    transition: "transform 0.3s ease",
-                    "&:hover": {
-                      transform: "scale(1.1)",
-                    },
                   }}
                   image={item.image || "https://picsum.photos/300/160"}
                   alt={item.title}

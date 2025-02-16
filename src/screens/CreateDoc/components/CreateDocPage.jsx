@@ -28,7 +28,6 @@ const CreateDocPage = ({ type }) => {
 
   return (
     <AnimationWrapper>
-      <Toaster />
       <Box sx={{ maxWidth: 800, margin: "auto", p: 3 }}>
         <Typography variant="h4" gutterBottom>
           {document ? "Edit Document" : "Create Document"}
