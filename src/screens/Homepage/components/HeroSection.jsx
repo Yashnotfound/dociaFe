@@ -1,33 +1,58 @@
-import { Container } from "@mui/material";
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-import React from "react";
+import React, { useContext } from "react";
+import { Container, Box, Tab } from "@mui/material";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
 import CardHolder from "./CardHolder";
+import heroSectionLogic from "../containers/heroSectionLogic";
 import { UserContext } from "../../../App";
-import {useContext} from "react";
 
-const HeroSection = ({value, tabChangeHandler}) => {
-    const {userAuth,userAuth:{accessToken,role} = {}} = useContext(UserContext);
+const HeroSection = () => {
+  const { value, tabChangeHandler } = heroSectionLogic();
+  const { userAuth } = useContext(UserContext);
+  const accessToken = userAuth?.accessToken;
+  const role = userAuth?.role;
+
+  const isAdmin = !!(accessToken && role === "ADMIN");
+  const isLoggedIn = !!accessToken;
+
+  // Build tabs array based on user status.
+  let tabs = [];
+  if (isAdmin) {
+    tabs = [
+      { label: "Pending Requests", value: "pending" },
+      { label: "All Docs", value: "all-docs" },
+      { label: "Your Docs", value: "user" },
+      { label: "General Docs", value: "general" },
+      { label: "API Contracts", value: "api" },
+    ];
+  } else if (isLoggedIn) {
+    tabs = [
+      { label: "Your Docs", value: "user" },
+      { label: "General Docs", value: "general" },
+      { label: "API Contracts", value: "api" },
+    ];
+  } else {
+    tabs = [
+      { label: "General Docs", value: "general" },
+      { label: "API Contracts", value: "api" },
+    ];
+  }
+
   return (
-    <Container maxWidth="xl" sx={{marginBottom: 5}}>
-        <TabContext value={value}>
+    <Container maxWidth="xl" sx={{ marginBottom: 5 }}>
+      <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <TabList onChange={tabChangeHandler}>
-            {userAuth&&accessToken&&role==="ADMIN"?<Tab label="Pending Requests" value="pending" />:null}
-            {userAuth&&accessToken&&role==="ADMIN"?<Tab label="All Docs" value="all-docs" />:null}
-
-            <Tab label="General Docs" value="general" />
-            <Tab label="API Contracts" value="api" />
-            {userAuth&&accessToken?<Tab label="Your Docs" value="user" />:null}
-            </TabList>
+          <TabList onChange={tabChangeHandler}>
+            {tabs.map((tab, idx) => (
+              <Tab key={idx} label={tab.label} value={tab.value} />
+            ))}
+          </TabList>
         </Box>
-        {
-          <TabPanel value = {value}>{<CardHolder type = {value} />}</TabPanel>
-        }
-        </TabContext>
+        <TabPanel value={value}>
+          <CardHolder type={value} />
+        </TabPanel>
+      </TabContext>
     </Container>
   );
 };

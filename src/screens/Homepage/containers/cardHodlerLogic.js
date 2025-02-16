@@ -1,29 +1,38 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from 'react';
+import { toast } from 'react-hot-toast';
 import { UserContext } from "../../../App";
-import axios from "axios";
+import { callAPI } from "../../../Shared/utils/api";
 
-export const useCardHolderLogic = ({ type }) => {
+export const useCardHolderLogic = ({ type, statusFilter }) => {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { userAuth:{userId} = {} } = useContext(UserContext);
+  
+  const { userAuth: { userId } = {} } = useContext(UserContext);
+
   const routes = {
-    "general": "/api/documents/find?type=GENERAL&status=APPROVED",
-    "api": "/api/documents/find?type=API_CONTRACT&status=APPROVED",
-    "user": `/api/documents/find?userId=${userId}`,
-    "pending": "/api/documents/find?status=PENDING",
-    "all-docs": "/api/documents/find"
-  }
+    "general": `documents/find?type=GENERAL&status=APPROVED`,
+    "api": `documents/find?type=API_CONTRACT&status=APPROVED`,
+    "user": statusFilter
+      ? `documents/find?userId=${userId}&status=${statusFilter}`
+      : `documents/find?userId=${userId}`,
+    "pending": `documents/find?status=PENDING`,
+    "all-docs" : statusFilter
+      ? `documents/find?status=${statusFilter}`
+      : `documents/find`,
+  };
+
   useEffect(() => {
     const fetchDocuments = async () => {
       setLoading(true);
       setError(null);
-      
       try {
-        const response = await axios.get(`http://localhost:8080${routes[type]}`);
-        setDocuments(response.data);
+        const data = await callAPI({
+          method: "GET",
+          path: routes[type],
+        });
+        setDocuments(data);
       } catch (err) {
-        console.error("Error fetching documents:", err);
         setError("Failed to fetch documents.");
       } finally {
         setLoading(false);
@@ -31,7 +40,7 @@ export const useCardHolderLogic = ({ type }) => {
     };
 
     if (type) fetchDocuments();
-  }, [type]);
-  return { items : documents, loading, error };
-};
+  }, [type, statusFilter, userId]);
 
+  return { items: documents, loading, error };
+};

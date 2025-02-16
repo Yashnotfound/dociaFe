@@ -6,16 +6,16 @@ import { removeFromSession } from "../../Auth/containers/session";
 const useUserNavigation = () => {
   const { userAuth: { username, role }, setUserAuth } = useContext(UserContext);
 
-  // Function to log out the user
   const signOutUser = () => {
     removeFromSession("user");
     setUserAuth({ access_token: null });
+    localStorage.setItem("selectedTab", "general");
   };
 
   return {
     username,
     role,
-    signOutUser
+    signOutUser,
   };
 };
 

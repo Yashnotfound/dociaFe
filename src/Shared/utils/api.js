@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const api = axios.create({
   baseURL: "http://localhost:8080/api",
   withCredentials: true,
@@ -16,7 +15,7 @@ export const callAPI = async ({ method = "GET", path, payload = null, accessToke
       url: path,
       data: payload,
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
         ...customHeaders,
       },
     });
