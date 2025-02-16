@@ -5,8 +5,8 @@ import { UserContext } from "../../../App";
 import { Navigate } from "react-router-dom";
 import AnimationWrapper from "../../../navigation/hoc/page-animation";
 import { Toaster } from "react-hot-toast";
-import MarkdownEditor from "./MarkdownEditor";
-import UploadYaml from "./UploadYaml";
+import MarkdownEditor from "../../../Shared/components/CreateAndEdit/MarkdownEditor";
+import UploadYaml from "../../../Shared/components/CreateAndEdit/UploadYaml";
 
 const CreateDocPage = ({ type }) => {
   const { userAuth } = useContext(UserContext);

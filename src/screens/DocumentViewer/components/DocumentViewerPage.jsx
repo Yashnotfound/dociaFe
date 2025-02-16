@@ -34,7 +34,7 @@ const DocumentViewerPage = () => {
   };
 
   const handleEdit = () => {
-    navigate(`/documents/edit/doc/${document.id}`);
+    navigate(`/documents/edit/${document.id}`);
   };
 
   const deleteHandler = async () => {

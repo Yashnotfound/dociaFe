@@ -16,5 +16,5 @@ export const publicRoutes = [
 export const privateRoutes = [
   { path: "documents/doc/create", element: <CreateDocumentPage type="GENERAL" /> },
   { path: "documents/api-contract/create", element: <CreateDocumentPage type="API_CONTRACT" /> },
-  { path: "documents/edit/:id", element: <CreateDocumentPage/> },
+  { path: "documents/edit/:id", element: <EditDocumentPage/> },
 ];
