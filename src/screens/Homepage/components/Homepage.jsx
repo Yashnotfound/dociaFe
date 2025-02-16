@@ -8,12 +8,13 @@ const Homepage = () => {
   const { value, tabChangeHandler, isAuthenticated } = heroSectionLogic();
   return (
     <>
+      <AnimationWrapper >
       <Container maxWidth="xl">
-        <AnimationWrapper />
         <Header />
         <HeroSection value = {value} tabChangeHandler = {tabChangeHandler} isAuthenticated = {isAuthenticated}/>
        <Footer />
       </Container>
+      </AnimationWrapper>
     </>
   );
 };

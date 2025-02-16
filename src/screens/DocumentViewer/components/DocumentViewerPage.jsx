@@ -8,7 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { UserContext } from "../../../App";
 import { handleReviewDocument } from "../api/reviewDocumentAPI";
-import { Toaster, toast } from "react-hot-toast";
+import {  toast } from "react-hot-toast";
 import MarkdownViewer from "./MarkdownViewer";
 import ApiContractViewer from "./ApiContractViewer";
 import CommentsBar from "./CommentsBar";
@@ -61,7 +61,7 @@ const DocumentViewerPage = () => {
 
   return (
     <Box padding={2}>
-      {/* Document Title and Status */}
+
       <div>
         <Typography variant="h4" gutterBottom style={{ display: "flex", alignItems: "center" }}>
           <span>{document.title}</span>
@@ -73,7 +73,7 @@ const DocumentViewerPage = () => {
           />
         </Typography>
         <Box display="flex" justifyContent="flex-end" marginTop={2} marginBottom={2} gap={1}>
-          {/* Show Approve or Reject based on status */}
+
           {isAdmin && document.status !== "APPROVED" && (
             <Button variant="contained" color="success" startIcon={<CheckIcon />} onClick={() => handleReview("APPROVED")}>
               Approve
@@ -84,7 +84,7 @@ const DocumentViewerPage = () => {
               Reject
             </Button>
           )}
-          {/* Edit and Delete buttons for Author */}
+
           {isAuthor && (
             <>
               <Button variant="contained" color="primary" startIcon={<EditIcon />} onClick={handleEdit}>
@@ -100,7 +100,7 @@ const DocumentViewerPage = () => {
 
       <Paper elevation={3} sx={{ padding: 2 }}>
         <Typography variant="subtitle1" color="textSecondary" paragraph>
-          {document.author} | {document.createdAt}
+          {document.author} | {document.createdAt.split('T')[0] + " " + document.createdAt.split('T')[1].substring(0, 8)}
         </Typography>
         {document.type === "GENERAL" ? (
           <MarkdownViewer markdown={document.content} />

@@ -16,6 +16,7 @@ import { useCardHolderLogic } from "../containers/cardHodlerLogic";
 import { Link } from "react-router-dom";
 import { getStatusColor } from "../../../Shared/containers/getStatusColor";
 import banner from "../../../assets/images/mountains.jpg";
+import AnimationWrapper from "../../../navigation/hoc/page-animation";
 
 const CardHolder = ({ type }) => {
   const showDropdown = type === "all-docs" || type === "user";
@@ -37,6 +38,7 @@ const CardHolder = ({ type }) => {
 
   return (
     <>
+      <AnimationWrapper>
       {showDropdown && (
         <Box sx={{ mb: 2, display: "flex", justifyContent: "flex-end" }}>
           <FormControl variant="outlined" size="small">
@@ -122,7 +124,7 @@ const CardHolder = ({ type }) => {
                         {`By ${item.author}`}
                       </Typography>
                       <Typography variant="body2" color="textSecondary" sx={{ fontSize: "0.75rem", opacity: 0.7 }}>
-                        {item.createdAt}
+                      {item.createdAt.split('T')[0] + " " + item.createdAt.split('T')[1].substring(0, 8)}
                       </Typography>
                     </Box>
                   </CardContent>
@@ -132,6 +134,7 @@ const CardHolder = ({ type }) => {
           ))}
         </Grid>
       )}
+      </AnimationWrapper>
     </>
   );
 };
