@@ -16,11 +16,9 @@ const HeroSection = () => {
   const isAdmin = !!(accessToken && role === "ADMIN");
   const isLoggedIn = !!accessToken;
 
-  // Build tabs array based on user status.
   let tabs = [];
   if (isAdmin) {
     tabs = [
-      { label: "Pending Requests", value: "pending" },
       { label: "All Docs", value: "all-docs" },
       { label: "Your Docs", value: "user" },
       { label: "General Docs", value: "general" },

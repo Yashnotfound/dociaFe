@@ -13,19 +13,16 @@ import {
   InputLabel,
 } from "@mui/material";
 import { useCardHolderLogic } from "../containers/cardHodlerLogic";
-import { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { getStatusColor } from "../../../Shared/containers/getStatusColor";
+import banner from "../../../assets/images/mountains.jpg";
 
 const CardHolder = ({ type }) => {
-  // Only show dropdown if type is "all-docs" or "user"
   const showDropdown = type === "all-docs" || type === "user";
-  const [statusFilter, setStatusFilter] = useState("APPROVED"); // Default filter
+  const [statusFilter, setStatusFilter] = useState("APPROVED");
 
-  // Pass the statusFilter to the hook when applicable.
-  const { items, loading, error } = useCardHolderLogic({ type, statusFilter });
+  const { items, loading} = useCardHolderLogic({ type, statusFilter });
 
-  // Handle change in dropdown value.
   const handleFilterChange = (e) => {
     setStatusFilter(e.target.value);
   };
@@ -40,7 +37,6 @@ const CardHolder = ({ type }) => {
 
   return (
     <>
-      <Toaster />
       {showDropdown && (
         <Box sx={{ mb: 2, display: "flex", justifyContent: "flex-end" }}>
           <FormControl variant="outlined" size="small">
@@ -100,7 +96,7 @@ const CardHolder = ({ type }) => {
                       height: 160,
                       objectFit: "cover",
                     }}
-                    image={item.image || "https://picsum.photos/300/160"}
+                    image={item.image || banner}
                     alt={item.title}
                   />
 

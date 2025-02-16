@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from 'react';
-import { toast } from 'react-hot-toast';
 import { UserContext } from "../../../App";
 import { callAPI } from "../../../Shared/utils/api";
 
@@ -16,7 +15,6 @@ export const useCardHolderLogic = ({ type, statusFilter }) => {
     "user": statusFilter
       ? `documents/find?userId=${userId}&status=${statusFilter}`
       : `documents/find?userId=${userId}`,
-    "pending": `documents/find?status=PENDING`,
     "all-docs" : statusFilter
       ? `documents/find?status=${statusFilter}`
       : `documents/find`,
