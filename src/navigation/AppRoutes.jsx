@@ -13,7 +13,6 @@ const AppRoutes = () => {
       <Toaster />
       <AnimationWrapper />
       <Navbar />
-
       <Routes>
         {/* Public Routes */}
         <Route element={<PublicLayout />}>

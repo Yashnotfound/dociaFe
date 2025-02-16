@@ -1,13 +1,15 @@
-import { useState, useContext } from "react";
-import axios from "axios";
-import { UserContext } from "../../../App";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { UserContext } from "../../../App";
+import { callAPI } from "../../../Shared/utils/api";
 
-export const createDocLogic = (type) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [content, setContent] = useState("");
+export const createDocLogic = ({ type }) => {
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    content: "",
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -15,17 +17,23 @@ export const createDocLogic = (type) => {
   const { userAuth } = useContext(UserContext);
   const accessToken = userAuth?.accessToken;
 
-  const handleTitleChange = (e) => setTitle(e.target.value);
-  const handleDescriptionChange = (e) => setDescription(e.target.value);
-  const handleEditorChange = (text) => setContent(text);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleEditorChange = (text) => {
+    setFormData((prev) => ({ ...prev, content: text }));
+  };
 
   const onUpload = (fileContent) => {
-        setContent(fileContent);
+    setFormData((prev) => ({ ...prev, content: fileContent }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    const { title, description, content } = formData;
+
     if (!title || !description || !content) {
       setError("All fields are required.");
       return;
@@ -38,41 +46,32 @@ export const createDocLogic = (type) => {
     }
 
     setLoading(true);
-    const payload = {
-      title,
-      description,
-      content,
-      type : type
-    };
-    console.log
-    
-    try {
-      await axios.post("http://localhost:8080/api/documents", payload, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
 
+    const payload = { title, description, content, type };
+
+    try {
+      await callAPI({
+        method: "POST",
+        path: "/documents",
+        payload,
+        accessToken,
+      });
       toast.success("Document created successfully!");
       setTimeout(() => navigate("/"), 2000);
     } catch (error) {
       console.error("Error submitting document:", error);
-      setError("There was an issue creating the document.");
-      toast.error("Failed to create document!");
+      setError("There was an issue submitting the document.");
+      toast.error("Failed to create/update document!");
     } finally {
       setLoading(false);
     }
   };
 
   return {
-    title,
-    description,
-    content,
+    formData,
     loading,
     error,
-    handleTitleChange,
-    handleDescriptionChange,
+    handleChange,
     handleEditorChange,
     handleSubmit,
     onUpload,

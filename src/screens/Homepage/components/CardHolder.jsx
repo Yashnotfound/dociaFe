@@ -1,12 +1,12 @@
 import React from "react";
-import { Card, CardContent, CardMedia, Typography, Grid } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography, Grid, Box, Chip } from "@mui/material";
 import { useCardHolderLogic } from "../containers/cardHodlerLogic";
 import { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
-import { Box } from "@mui/material";
 
+import { getStatusColor } from "../../../Shared/containers/getStatusColor";
 const CardHolder = ({ type }) => {
-  const { items } = useCardHolderLogic({ type: type });
+  const { items } = useCardHolderLogic({ type });
 
   return !items.length ? (
     <Box
@@ -16,7 +16,6 @@ const CardHolder = ({ type }) => {
       height="100vh"
     >
       <Typography variant="h4" gutterBottom>
-        {" "}
         No docs Found
       </Typography>
     </Box>
@@ -26,10 +25,7 @@ const CardHolder = ({ type }) => {
       <Grid container spacing={2} alignItems="stretch">
         {items.map((item) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
-            <Link
-              to={`/documents/${item.id}`}
-              style={{ textDecoration: "none" }}
-            >
+            <Link to={`/documents/${item.id}`} style={{ textDecoration: "none" }}>
               <Card
                 sx={{
                   display: "flex",
@@ -43,13 +39,21 @@ const CardHolder = ({ type }) => {
                   borderLeft: `6px solid ${
                     item.type === "GENERAL" ? "#1976D2" : "#D32F2F"
                   }`,
-
                   "&:hover": {
                     transform: "scale(1.05)",
                     boxShadow: 6,
                   },
                 }}
               >
+                {/* Status Tag */}
+                <Box sx={{ position: "absolute", top: 8, right: 8 }}>
+                  <Chip
+                    label={item.status}
+                    color={getStatusColor(item.status)}
+                    size="small"
+                  />
+                </Box>
+
                 {/* Animated Image */}
                 <CardMedia
                   component="img"

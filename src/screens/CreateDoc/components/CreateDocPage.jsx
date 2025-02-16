@@ -1,47 +1,37 @@
-import React from "react";
-import {
-  TextField,
-  Button,
-  Typography,
-  Card,
-  CardMedia,
-  Box,
-} from "@mui/material";
+import React, { useContext } from "react";
+import { TextField, Button, Box, Typography, Card, CardMedia } from "@mui/material";
 import { createDocLogic } from "../containers/createDocLogic";
 import { UserContext } from "../../../App";
-import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import AnimationWrapper from "../../../navigation/hoc/page-animation";
 import { Toaster } from "react-hot-toast";
 import MarkdownEditor from "./MarkdownEditor";
 import UploadYaml from "./UploadYaml";
 
-const CreateDocPage = ({type}) => {
+const CreateDocPage = ({ type }) => {
   const { userAuth } = useContext(UserContext);
   const accessToken = userAuth?.accessToken;
-  const staticImageUrl = "https://random.imagecdn.app/500/150"
+
   if (!accessToken) {
     return <Navigate to="/login" />;
   }
+
   const {
-    title,
-    description,
-    content,
+    formData,
     loading,
     error,
-    handleTitleChange,
-    handleDescriptionChange,
+    handleChange,
     handleEditorChange,
     handleSubmit,
     onUpload,
-  } = createDocLogic(type);
+  } = createDocLogic({ type });
 
   return (
     <AnimationWrapper>
       <Toaster />
       <Box sx={{ maxWidth: 800, margin: "auto", p: 3 }}>
         <Typography variant="h4" gutterBottom>
-          Create Document
+          {document ? "Edit Document" : "Create Document"}
         </Typography>
 
         {error && (
@@ -53,49 +43,42 @@ const CreateDocPage = ({type}) => {
         <form onSubmit={handleSubmit}>
           {/* Title */}
           <TextField
+            fullWidth
+            name="title"
             label="Title"
             variant="outlined"
-            fullWidth
-            value={title}
-            onChange={handleTitleChange}
+            value={formData.title}
+            onChange={handleChange}
             sx={{ mb: 2 }}
+            required
           />
 
           {/* Description */}
           <TextField
+            fullWidth
+            name="description"
             label="Description"
             variant="outlined"
-            fullWidth
+            value={formData.description}
+            onChange={handleChange}
+            sx={{ mb: 2 }}
+            required
             multiline
             rows={3}
-            value={description}
-            onChange={handleDescriptionChange}
-            sx={{ mb: 2 }}
           />
 
-          <Card sx={{ maxWidth: 300, mb: 2 }}>
-            <CardMedia
-              component="img"
-              height="160"
-              image={staticImageUrl}
-              alt="Banner"
-            />
-          </Card>
-
-          {/* Markdown Editor */}
+          {/* Markdown Editor or YAML Upload based on type */}
           {type === "GENERAL" ? (
-            <MarkdownEditor
-              content={content}
-              handleEditorChange={handleEditorChange}
-            />
+            <MarkdownEditor content={formData.content} handleEditorChange={handleEditorChange} />
           ) : (
             <UploadYaml onUpload={onUpload} />
           )}
+
           {/* Submit Button */}
           <Button
-            type="submit"
             variant="contained"
             color="primary"
+            type="submit"
             fullWidth
             sx={{ mt: 3 }}
             disabled={loading}

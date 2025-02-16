@@ -6,7 +6,7 @@ import { documentViewLogic } from "../containers/documentViewLogic";
 import MarkdownViewer from "./MarkdownViewer";
 import CommentsBar from "./CommentsBar";
 import Chip from "@mui/material/Chip";
-import { getStatusColor } from "../containers/getStatusColor";
+import { getStatusColor } from "../../../Shared/containers/getStatusColor";
 import Button from "@mui/material/Button";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
@@ -17,9 +17,9 @@ import { Toaster } from "react-hot-toast";
 import ApiContractViewer from "./ApiContractViewer";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { callAPI } from "../../../Shared/utils/api";
 
 const DocumentViewerPage = () => {
   const { id } = useParams();
@@ -33,12 +33,19 @@ const DocumentViewerPage = () => {
     console.log("Document Approved");
     handleReviewDocument(id, status, accessToken);
   };
+
+  const handleEdit = () => {
+    debugger;
+    navigate(`/documents/edit/doc/${document.id}`);
+  };
+
   const deleteHandler = async () => {
     try {
-      const response = await axios.delete(
-        `http://localhost:8080/api/documents/${id}`,
-        { headers: { Authorization: `Bearer ${accessToken}` } }
-      );
+      const response = await callAPI({
+        method: "DELETE",
+        path: `/api/documents/${id}`,
+        accessToken,
+      });
       toast.success("Document deleted successfully!");
       setTimeout(() => navigate("/"), 2000);
       return response;
@@ -46,6 +53,7 @@ const DocumentViewerPage = () => {
       toast.error("Failed to delete document!");
     }
   };
+  
 
   if (!document) {
     return (
@@ -109,6 +117,7 @@ const DocumentViewerPage = () => {
                 variant="contained"
                 color="primary"
                 startIcon={<EditIcon />}
+                onClick={() => handleEdit()}
               >
                 Edit
               </Button>
