@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 import AnimationWrapper from "../../../navigation/hoc/page-animation";
@@ -11,7 +11,7 @@ const UserAuthScreen = ({ type }) => {
   const { userAuthThroughServer } = userAuthLogic();
   const isLogin = type.toLowerCase() === "login";
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = React.useState({
     username: "",
     email: "",
     password: "",
@@ -97,12 +97,19 @@ const UserAuthScreen = ({ type }) => {
           </div>
 
           {isLogin ? (
-            <p className="mt-6 text-dark-grey text-xl text-center">
-              Don't have an account?{" "}
-              <Link to="/signup" className="underline text-black">
-                Sign up
-              </Link>
-            </p>
+            <>
+              <p className="mt-6 text-dark-grey text-xl text-center">
+                Don't have an account?{" "}
+                <Link to="/signup" className="underline text-black">
+                  Sign up
+                </Link>
+              </p>
+              <div className="mt-4 text-center">
+                <Link to="/forgot-password" className="underline text-black">
+                  Forgot Password?
+                </Link>
+              </div>
+            </>
           ) : (
             <p className="mt-6 text-dark-grey text-xl text-center">
               Already have an account?{" "}

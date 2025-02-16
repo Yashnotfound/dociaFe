@@ -1,4 +1,3 @@
-// src/pages/EditDocument.jsx
 import React from "react";
 import {
   Box,

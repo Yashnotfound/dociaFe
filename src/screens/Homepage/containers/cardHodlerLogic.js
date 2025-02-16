@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../../App";
 import { callAPI } from "../../../Shared/utils/api";
 
@@ -6,16 +6,16 @@ export const useCardHolderLogic = ({ type, statusFilter }) => {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   const { userAuth: { userId } = {} } = useContext(UserContext);
 
   const routes = {
-    "general": `documents/find?type=GENERAL&status=APPROVED`,
-    "api": `documents/find?type=API_CONTRACT&status=APPROVED`,
-    "user": statusFilter
+    general: `documents/find?type=GENERAL&status=APPROVED`,
+    api: `documents/find?type=API_CONTRACT&status=APPROVED`,
+    user: statusFilter
       ? `documents/find?userId=${userId}&status=${statusFilter}`
       : `documents/find?userId=${userId}`,
-    "all-docs" : statusFilter
+    "all-docs": statusFilter
       ? `documents/find?status=${statusFilter}`
       : `documents/find`,
   };
