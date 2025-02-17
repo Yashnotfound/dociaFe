@@ -2,7 +2,6 @@
 import { Link } from "react-router-dom";
 import logo from "../../../assets/images/logo.png";
 import { Outlet } from "react-router-dom";
-import SearchBar from "./SearchBar";
 import UserMenu from "./UserMenu";
 import navbarLogic from "../Containers/navbarLogic";
 import { Typography } from "@mui/material";
@@ -26,11 +25,6 @@ const Navbar = () => {
             Docia
           </Typography>
         </Link>
-
-        {/* <SearchBar
-          searchBoxVisibility={searchBoxVisibility}
-          toggleSearchBox={toggleSearchBox}
-        /> */}
 
         <div className="flex items-center gap-3 md:gap-6 ml-auto">
           <Link

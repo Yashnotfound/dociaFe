@@ -52,7 +52,7 @@ export const documentViewLogic = ({ id }) => {
         accessToken,
       });
       toast.success("Document deleted successfully!");
-      setTimeout(() => navigate("/"), 2000);
+      navigate("/")
     } catch (error) {
       toast.error("Failed to delete document!");
     }

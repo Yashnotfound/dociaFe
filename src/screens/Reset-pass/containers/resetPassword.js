@@ -40,7 +40,7 @@ export const resetPassword = (token) => {
         payload,
       });
       toast.success("Password reset successfully!");
-      setTimeout(() => navigate("/login"), 2000);
+      navigate("/login")
     } catch (err) {
       console.error("Reset password error:", err);
       setError("Failed to reset password.");

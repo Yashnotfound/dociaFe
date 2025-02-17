@@ -2,7 +2,7 @@ import React, { lazy } from "react";
 
 const Homepage = lazy(() => import("../screens/Homepage"));
 const AuthScreen = lazy(() => import("../screens/Auth"));
-const CreateDocumentPage = lazy(() => import("../screens/CreateDoc"));
+const CreateDocument = lazy(() => import("../screens/CreateDoc"));
 const DocumentViewerPage = lazy(() => import("../screens/DocumentViewer"));
 const EditDocumentPage = lazy(() => import("../screens/EditDoc"));
 const ForgotPasswordPage = lazy(() => import("../screens/Forgot-pass"));
@@ -18,7 +18,7 @@ export const publicRoutes = [
 ];
 
 export const privateRoutes = [
-  { path: "/documents/doc/create", element: <CreateDocumentPage type="GENERAL" /> },
-  { path: "/documents/api-contract/create", element: <CreateDocumentPage type="API_CONTRACT" /> },
+  { path: "/documents/doc/create", element: <CreateDocument type="GENERAL" /> },
+  { path: "/documents/api-contract/create", element: <CreateDocument type="API_CONTRACT" /> },
   { path: "/documents/edit/:id", element: <EditDocumentPage /> },
 ];

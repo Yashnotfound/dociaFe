@@ -6,14 +6,13 @@ import {
   Paper,
   CircularProgress,
 } from "@mui/material";
-import MarkdownEditor from "../../../Shared/components/CreateAndEdit/MarkdownEditor";
-import UploadYaml from "../../../Shared/components/CreateAndEdit/UploadYaml";
+import {MarkdownEditor} from "../../../Shared/components";
+import {UploadYaml} from "../../../Shared/components";
 import { editDocument } from "../containers/editDocument";
 import { useParams } from "react-router-dom";
 
 const EditDocumentPage = () => {
   const { id } = useParams();
-
   const {
     formData,
     loading,
@@ -39,7 +38,7 @@ const EditDocumentPage = () => {
   }
 
   return (
-      <Paper sx={{ padding: 3, maxWidth: 800, margin: "auto" }}>
+      <Paper sx={{ padding: 3, maxWidth: 800, margin: "auto", marginTop: 6 }}>
         <Typography variant="h4" gutterBottom>
           Edit Document
         </Typography>

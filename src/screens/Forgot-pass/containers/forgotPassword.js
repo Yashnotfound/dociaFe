@@ -24,7 +24,7 @@ export const forgotPassword = () => {
         payload,
       });
       toast.success("Password reset link sent to your email.");
-      setTimeout(() => navigate("/login"), 2000);
+      navigate("/login")
     } catch (error) {
       console.error("Error in forgot password:", error);
       toast.error("Email not found. Please try again.");

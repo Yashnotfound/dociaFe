@@ -84,7 +84,7 @@ export const editDocument = (documentId) => {
         accessToken,
       });
       toast.success("Document updated successfully!");
-      setTimeout(() => navigate(`/documents/${documentId}`), 2000);
+      navigate(`/documents/${documentId}`)
     } catch (err) {
       setError("There was an issue updating the document.");
       toast.error("Failed to update document!");

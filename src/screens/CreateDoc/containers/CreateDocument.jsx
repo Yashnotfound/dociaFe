@@ -1,10 +1,15 @@
-import { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { UserContext } from "../../../App";
-import callAPI from "../../../Shared/utils";
+import callAPI from "../../../Shared/utils/api";
+import CreateDocumentPage from "../components/CreateDocumentPage";
 
-export const createDocLogic = ({ type }) => {
+const CreateDocument = ({ type }) => {
+  const { userAuth } = useContext(UserContext);
+  const accessToken = userAuth?.accessToken;
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -12,10 +17,10 @@ export const createDocLogic = ({ type }) => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
-  const { userAuth } = useContext(UserContext);
-  const accessToken = userAuth?.accessToken;
+  if (!accessToken) {
+    return <Navigate to="/login" />;
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,41 +44,38 @@ export const createDocLogic = ({ type }) => {
       return;
     }
 
-    if (!accessToken) {
-      setError("User not authenticated.");
-      toast.error("Authentication error!");
-      return;
-    }
-
     setLoading(true);
-
-    const payload = { title, description, content, type };
 
     try {
       await callAPI({
         method: "POST",
         path: "/documents",
-        payload,
+        payload: { title, description, content, type },
         accessToken,
       });
       toast.success("Document created successfully!");
-      setTimeout(() => navigate("/"), 2000);
+      navigate("/");
     } catch (error) {
       console.error("Error submitting document:", error);
       setError("There was an issue submitting the document.");
-      toast.error("Failed to create/update document!");
+      toast.error("Failed to create document!");
     } finally {
       setLoading(false);
     }
   };
 
-  return {
-    formData,
-    loading,
-    error,
-    handleChange,
-    handleEditorChange,
-    handleSubmit,
-    onUpload,
-  };
+  return (
+    <CreateDocumentPage
+      type={type}
+      formData={formData}
+      loading={loading}
+      error={error}
+      handleChange={handleChange}
+      handleEditorChange={handleEditorChange}
+      handleSubmit={handleSubmit}
+      onUpload={onUpload}
+    />
+  );
 };
+
+export default CreateDocument;

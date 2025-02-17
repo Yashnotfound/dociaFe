@@ -1,35 +1,22 @@
-import React, { useContext } from "react";
-import { TextField, Button, Box, Typography} from "@mui/material";
-import { createDocLogic } from "../containers/createDocLogic";
-import { UserContext } from "../../../App";
-import { Navigate } from "react-router-dom";
+import React from "react";
+import { TextField, Button, Box, Typography,MarkdownEditor,UploadYaml } from "../../../Shared/components";
 import AnimationWrapper from "../../../navigation/hoc/page-animation";
-import MarkdownEditor from "../../../Shared/components/CreateAndEdit/MarkdownEditor";
-import UploadYaml from "../../../Shared/components/CreateAndEdit/UploadYaml";
 
-const CreateDocPage = ({ type }) => {
-  const { userAuth } = useContext(UserContext);
-  const accessToken = userAuth?.accessToken;
-
-  if (!accessToken) {
-    return <Navigate to="/login" />;
-  }
-
-  const {
-    formData,
-    loading,
-    error,
-    handleChange,
-    handleEditorChange,
-    handleSubmit,
-    onUpload,
-  } = createDocLogic({ type });
-
+const CreateDocumentPage = ({
+  type,
+  formData,
+  loading,
+  error,
+  handleChange,
+  handleEditorChange,
+  handleSubmit,
+  onUpload,
+}) => {
   return (
     <AnimationWrapper>
       <Box sx={{ maxWidth: 800, margin: "auto", p: 3 }}>
         <Typography variant="h4" gutterBottom>
-          {"Create Document"}
+          Create Document
         </Typography>
 
         {error && (
@@ -39,7 +26,7 @@ const CreateDocPage = ({ type }) => {
         )}
 
         <form onSubmit={handleSubmit}>
-          {/* Title */}
+
           <TextField
             fullWidth
             name="title"
@@ -51,7 +38,7 @@ const CreateDocPage = ({ type }) => {
             required
           />
 
-          {/* Description */}
+
           <TextField
             fullWidth
             name="description"
@@ -65,14 +52,14 @@ const CreateDocPage = ({ type }) => {
             rows={3}
           />
 
-          {/* Markdown Editor or YAML Upload based on type */}
+
           {type === "GENERAL" ? (
             <MarkdownEditor content={formData.content} handleEditorChange={handleEditorChange} />
           ) : (
             <UploadYaml onUpload={onUpload} />
           )}
 
-          {/* Submit Button */}
+
           <Button
             variant="contained"
             color="primary"
@@ -89,4 +76,4 @@ const CreateDocPage = ({ type }) => {
   );
 };
 
-export default CreateDocPage;
+export default CreateDocumentPage;

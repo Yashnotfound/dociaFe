@@ -1,3 +1,3 @@
-import CreateDocPage from "./components/CreateDocPage";
+import CreateDocument from "./containers/CreateDocument";
 
-export default CreateDocPage;
+export default CreateDocument;
