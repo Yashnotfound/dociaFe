@@ -1,3 +1,3 @@
-import DocumentViewerPage from "./components/DocumentViewerPage";
+import DocumentViewer from "./containers/DocumentViewer";
 
-export default DocumentViewerPage
+export default DocumentViewer;

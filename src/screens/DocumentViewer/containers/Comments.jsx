@@ -1,15 +1,16 @@
-import { useState, useEffect,useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { fetchComments, postComment } from "../api/commentAPI";
-import {UserContext} from "../../../App";
+import { UserContext } from "../../../App";
+import CommentsBar from "../components/CommentsBar";
 
-const useComments = (documentId) => {
+const Comments = ({ documentId }) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { userAuth: { accessToken } = {} } = useContext(UserContext);
-  const [isLogin, SetIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
   const [comment, setComment] = useState("");
-
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     const loadComments = async () => {
@@ -26,23 +27,22 @@ const useComments = (documentId) => {
     loadComments();
   }, [documentId]);
 
-  useEffect(()=>{
-    SetIsLogin(accessToken!=null)
-  },[accessToken])
+  useEffect(() => {
+    setIsLogin(accessToken != null);
+  }, [accessToken]);
 
   const handleCommentSubmit = async () => {
     if (!comment.trim()) return;
-
     await addComment(comment);
     setComment("");
   };
 
   const addComment = async (text) => {
     try {
-      if(!accessToken){
+      if (!accessToken) {
         setError("You need to be logged in to post a comment");
         return;
-    } 
+      }
       const newComments = await postComment(documentId, text, accessToken);
       setComments(newComments);
     } catch (err) {
@@ -50,7 +50,23 @@ const useComments = (documentId) => {
     }
   };
 
-  return { comments, loading, error, isLogin, addComment,comment,setComment,handleCommentSubmit };
+  const toggleShowMore = () => {
+    setShowAll((prev) => !prev);
+  };
+
+  return (
+    <CommentsBar
+      comments={comments}
+      loading={loading}
+      error={error}
+      isLogin={isLogin}
+      comment={comment}
+      setComment={setComment}
+      handleCommentSubmit={handleCommentSubmit}
+      showAll={showAll}
+      toggleShowMore={toggleShowMore}
+    />
+  );
 };
 
-export default useComments;
+export default Comments;

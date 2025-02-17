@@ -3,7 +3,7 @@ import React, { lazy } from "react";
 const Homepage = lazy(() => import("../screens/Homepage"));
 const AuthScreen = lazy(() => import("../screens/Auth"));
 const CreateDocument = lazy(() => import("../screens/CreateDoc"));
-const DocumentViewerPage = lazy(() => import("../screens/DocumentViewer"));
+const DocumentViewer = lazy(() => import("../screens/DocumentViewer"));
 const EditDocument = lazy(() => import("../screens/EditDoc"));
 const ForgotPasswordPage = lazy(() => import("../screens/Forgot-pass"));
 const ResetPasswordPage = lazy(() => import("../screens/Reset-pass"));
@@ -12,7 +12,7 @@ export const publicRoutes = [
   { path: "/", element: <Homepage /> },
   { path: "/login", element: <AuthScreen type="login" /> },
   { path: "/signup", element: <AuthScreen type="signup" /> },
-  { path: "/documents/:id", element: <DocumentViewerPage /> },
+  { path: "/documents/:id", element: <DocumentViewer /> },
   { path: "/forgot-password", element: <ForgotPasswordPage /> },
   { path: "/reset-password", element: <ResetPasswordPage /> },
 ];

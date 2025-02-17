@@ -1,38 +1,36 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import {
   Box,
   TextField,
-  List,
-  ListItem,
-  ListItemText,
   Typography,
   Paper,
   CircularProgress,
-} from "@mui/material";
+  Button,
+} from "../../../Shared/components";
+import { List, ListItem, ListItemText } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import useComments from "../containers/useComments";
-import { Button } from "../../../Shared/components";
 
-const CommentsBar = ({ documentId }) => {
-  const {
-    comments,
-    loading,
-    error,
-    isLogin,
-    comment,
-    setComment,
-    handleCommentSubmit,
-  } = useComments(documentId);
+const CommentsBar = ({
+  comments,
+  loading,
+  error,
+  isLogin,
+  comment,
+  setComment,
+  handleCommentSubmit,
+  showAll,
+  toggleShowMore,
+}) => {
+  const displayedComments = showAll ? comments : comments.slice(0, 3);
 
   return (
-    <Paper elevation={3} sx={{ padding: 2, marginTop: 3 }}>
-      <Typography variant="h6" gutterBottom>
+    <Paper elevation={3} sx={{ padding: 3, marginTop: 3, borderRadius: 4 }}>
+      <Typography variant="h6" fontWeight="bold" gutterBottom>
         Comments
       </Typography>
 
-      {/* Comment Input */}
       {isLogin && (
-        <Box display="flex" alignItems="center">
+        <Box display="flex" alignItems="center" sx={{ mb: 2 }}>
           <TextField
             fullWidth
             variant="outlined"
@@ -56,27 +54,36 @@ const CommentsBar = ({ documentId }) => {
       {loading && (
         <CircularProgress sx={{ display: "block", margin: "10px auto" }} />
       )}
-      {error && <Typography color="error">{error}</Typography>}
+      {error && (
+        <Typography color="error" sx={{ textAlign: "center", mb: 2 }}>
+          {error}
+        </Typography>
+      )}
 
-      <List sx={{ marginTop: 2 }}>
+      <List sx={{ mt: 2 }}>
         {comments.length === 0 ? (
-          <Typography color="textSecondary">No comments yet.</Typography>
+          <Typography color="textSecondary" sx={{ textAlign: "center" }}>
+            No comments yet.
+          </Typography>
         ) : (
-          comments.map((c) => (
-            <ListItem key={c.id} divider>
+          displayedComments.map((c) => (
+            <ListItem key={c.id} divider sx={{ py: 1.5 }}>
               <ListItemText
                 primary={c.content}
-                secondary={`${c.author} at ${
-                  c.createdAt.split("T")[0] +
-                  " " +
-                  c.createdAt.split("T")[1].substring(0, 8)
-                }`}
-                sx={{ wordWrap: "break-word" }}
+                secondary={`${c.author} - ${new Date(c.createdAt).toLocaleString()}`}
               />
             </ListItem>
           ))
         )}
       </List>
+
+      {comments.length > 3 && (
+        <Box display="flex" justifyContent="center" sx={{ mt: 2 }}>
+          <Button variant="text" onClick={toggleShowMore}>
+            {showAll ? "Show Less" : "Show More Comments"}
+          </Button>
+        </Box>
+      )}
     </Paper>
   );
 };

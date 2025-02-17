@@ -2,7 +2,7 @@ import React from "react";
 import showdown from "showdown";
 import showdownHighlight from "showdown-highlight";
 import "highlight.js/styles/github.css";
-import { Box } from "@mui/material";
+import { Box } from "../../../Shared/components";
 
 const converter = new showdown.Converter({
   tables: true,
