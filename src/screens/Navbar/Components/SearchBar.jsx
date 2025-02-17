@@ -3,7 +3,7 @@ import React from "react";
 const SearchBar = ({ searchBoxVisibility, toggleSearchBox }) => {
   return (
     <div className="relative w-full">
-      {/* Search Box */}
+
       <div
         className={`absolute bg-white w-full left-0 top-full mt-0.5 border-b border-grey py-4 px-6 
                     md:border-0 md:relative md:inset-0 md:p-0 md:w-auto ${

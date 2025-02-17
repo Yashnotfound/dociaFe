@@ -14,10 +14,6 @@ const UserNavigationPanel = () => {
           <p>Write</p>
         </Link>
 
-        <Link to={`/user/${username}`} className="link pl-8 py-4">
-          Profile
-        </Link>
-
         {/* Divider */}
         <span className="absolute border-t border-grey w-[100%]"></span>
 

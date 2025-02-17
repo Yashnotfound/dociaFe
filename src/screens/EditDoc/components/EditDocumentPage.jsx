@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   TextField,
@@ -7,8 +6,6 @@ import {
   Paper,
   CircularProgress,
 } from "@mui/material";
-import { Toaster } from "react-hot-toast";
-import AnimationWrapper from "../../../navigation/hoc/page-animation";
 import MarkdownEditor from "../../../Shared/components/CreateAndEdit/MarkdownEditor";
 import UploadYaml from "../../../Shared/components/CreateAndEdit/UploadYaml";
 import { editDocument } from "../containers/editDocument";

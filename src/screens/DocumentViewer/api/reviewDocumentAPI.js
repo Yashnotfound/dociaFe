@@ -1,23 +1,19 @@
-import axios from 'axios';
-import { toast } from 'react-hot-toast';
+import { callAPI } from "../../../Shared/utils/api";
+import { toast } from "react-hot-toast";
 
 export const handleReviewDocument = async (id, status, accessToken) => {
   try {
-    const data = { status };
-
-    const response = await axios.patch(
-      `http://localhost:8080/api/documents/${id}/review`,
-      data, 
-      {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${accessToken}`, 
-        },
-      }
-    );
+    const payload = { status };
+    const response = await callAPI({
+      method: "PATCH",
+      path: `/documents/${id}/review`,
+      payload,
+      accessToken,
+    });
     return response;
   } catch (error) {
-    console.error("Error fetching document:", error);
+    console.error("Error reviewing document:", error);
     toast.error("Failed to review document!");
+    throw error;
   }
 };

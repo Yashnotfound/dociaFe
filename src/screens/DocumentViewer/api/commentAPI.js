@@ -1,11 +1,12 @@
-import axios from "axios";
-
-const API_BASE_URL = import.meta.env.VITE_APP_URL;
+import { callAPI } from "../../../Shared/utils/api";
 
 export const fetchComments = async (documentId) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}documents/${documentId}/comments`);
-    return response.data;
+    const data = await callAPI({
+      method: "GET",
+      path: `/documents/${documentId}/comments`,
+    });
+    return data;
   } catch (error) {
     console.error("Error fetching comments:", error);
     return [];
@@ -13,18 +14,15 @@ export const fetchComments = async (documentId) => {
 };
 
 export const postComment = async (documentId, text, accessToken) => {
-    debugger;
   try {
-    const req = {
-        content : text
-    }
-    const response =  await axios.post(`${API_BASE_URL}documents/${documentId}/comments`,
-      req,
-    {
-        headers: {
-            Authorization: `Bearer ${accessToken}`}
+    const payload = { content: text };
+    const data = await callAPI({
+      method: "POST",
+      path: `/documents/${documentId}/comments`,
+      payload,
+      accessToken,
     });
-    return response.data;
+    return data;
   } catch (error) {
     console.error("Error posting comment:", error);
     throw error;

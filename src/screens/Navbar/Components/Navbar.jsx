@@ -12,8 +12,6 @@ const Navbar = () => {
     userAuth,
     accessToken,
     username,
-    searchBoxVisibility,
-    toggleSearchBox,
     userNavPanel,
     handleUserNavPanel,
     handleBlur,
@@ -22,7 +20,6 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar z-50 backdrop-blur-md px-4 py-3 shadow-md flex items-center">
-        {/* Logo */}
         <Link to="/" className="flex-col gap-2 h-12 mb-3">
           <img src={logo} alt="Logo" className="w-full mt-1" />
           <Typography variant="inherit" fontFamily={"fantasy"}>
@@ -30,13 +27,11 @@ const Navbar = () => {
           </Typography>
         </Link>
 
-        {/* Search Bar */}
-        <SearchBar
+        {/* <SearchBar
           searchBoxVisibility={searchBoxVisibility}
           toggleSearchBox={toggleSearchBox}
-        />
+        /> */}
 
-        {/* Navigation Links */}
         <div className="flex items-center gap-3 md:gap-6 ml-auto">
           <Link
             to="/documents/doc/create"
@@ -54,7 +49,6 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* User Menu */}
         <UserMenu
           userAuth={userAuth}
           accessToken={accessToken}

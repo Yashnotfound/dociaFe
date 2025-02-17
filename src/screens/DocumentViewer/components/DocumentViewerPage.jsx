@@ -16,6 +16,7 @@ import { callAPI } from "../../../Shared/utils/api";
 import { documentViewLogic } from "../containers/documentViewLogic";
   
 const DocumentViewerPage = () => {
+  debugger;
   const { id } = useParams();
   const { document, refreshDocument } = documentViewLogic({ id });
   const { userAuth: { role, accessToken, username } = {} } = useContext(UserContext);

@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Paper, Box, TextField, Button, Typography } from "@mui/material";
-import { Toaster } from "react-hot-toast";
 
 const ResetPasswordView = ({ 
   password, 
@@ -13,7 +12,6 @@ const ResetPasswordView = ({
 }) => {
   return (
     <Container maxWidth="sm" sx={{ mt: 5 }}>
-      <Toaster />
       <Paper sx={{ p: 3 }}>
         <Typography variant="h4" align="center" gutterBottom>
           Reset Password
