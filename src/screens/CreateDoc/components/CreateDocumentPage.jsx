@@ -43,7 +43,7 @@ const CreateDocumentPage = ({
           )}
 
           <form onSubmit={handleSubmit}>
-            {/* Title Input */}
+
             <TextField
               fullWidth
               name="title"
@@ -55,7 +55,7 @@ const CreateDocumentPage = ({
               required
             />
 
-            {/* Description Input */}
+
             <TextField
               fullWidth
               name="description"
@@ -69,7 +69,7 @@ const CreateDocumentPage = ({
               rows={3}
             />
 
-            {/* Markdown Editor or YAML Upload */}
+
             <Box
               component={motion.div}
               initial={{ opacity: 0, scale: 0.95 }}
@@ -84,7 +84,6 @@ const CreateDocumentPage = ({
               )}
             </Box>
 
-            {/* Submit Button */}
             <Box display="flex" justifyContent="center" sx={{ mt: 3 }}>
               <Button
                 variant="contained"

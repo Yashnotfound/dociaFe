@@ -3,7 +3,7 @@ import { Container, Box, Tab } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import CardHolder from "./CardHolder";
+import CardHolder from "../containers/CardHolder";
 import heroSectionLogic from "../containers/heroSectionLogic";
 import { UserContext } from "../../../App";
 

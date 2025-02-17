@@ -21,7 +21,6 @@ const converter = new showdown.Converter({
   extensions: [showdownHighlight],
 });
 
-// Markdown Viewer Component
 const MarkdownViewer = ({ markdown }) => {
   const html = converter.makeHtml(markdown);
 

@@ -3,6 +3,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import DownloadIcon from "@mui/icons-material/Download";
 import Comments from "../containers/Comments";
 import {
   Button,
@@ -20,6 +21,7 @@ const DocumentViewerPage = ({
   handleReview,
   handleDelete,
   handleEdit,
+  handleDownload,
   isAdmin,
   isAuthor,
 }) => {
@@ -82,6 +84,14 @@ const DocumentViewerPage = ({
             </Button>
           </>
         )}
+        <Button
+          variant="contained"
+          color="info"
+          startIcon={<DownloadIcon />}
+          onClick={handleDownload}
+        >
+          Download
+        </Button>
       </Box>
 
       <Paper elevation={3} sx={{ padding: 3, borderRadius: 4, mb: 4 }}>

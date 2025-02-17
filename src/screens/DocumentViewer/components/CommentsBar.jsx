@@ -22,7 +22,6 @@ const CommentsBar = ({
   toggleShowMore,
 }) => {
   const displayedComments = showAll ? comments : comments.slice(0, 3);
-
   return (
     <Paper elevation={3} sx={{ padding: 3, marginTop: 3, borderRadius: 4 }}>
       <Typography variant="h6" fontWeight="bold" gutterBottom>

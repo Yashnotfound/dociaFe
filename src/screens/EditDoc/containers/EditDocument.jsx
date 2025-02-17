@@ -64,6 +64,7 @@ const EditDocument = () => {
 
   const onUpload = (fileContent) => {
     setFormData((prev) => ({ ...prev, content: fileContent }));
+    toast.success("Document Uploaded Successfully");
   };
 
   const handleSubmit = async (e) => {

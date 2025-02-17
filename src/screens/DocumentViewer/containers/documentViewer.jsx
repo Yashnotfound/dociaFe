@@ -6,6 +6,8 @@ import callAPI from "../../../Shared/utils/api";
 import { handleReviewDocument } from "../api/reviewDocumentAPI";
 import DocumentViewerPage from "../components/DocumentViewerPage";
 import { Box, CircularProgress, Typography } from "../../../Shared/components";
+import yaml from "js-yaml";
+import { saveAs } from "file-saver";
 
 const DocumentViewer = () => {
   const { id: documentId } = useParams();
@@ -54,6 +56,23 @@ const DocumentViewer = () => {
     if (document) navigate(`/documents/edit/${document.id}`);
   };
 
+  const handleDownload = () => {
+    if (!document) return;
+    try {
+      const fileContent =
+        document.type === "GENERAL"
+          ? document.content
+          : yaml.dump(document.content, { indent: 2 });
+  
+      const fileExtension = document.type === "GENERAL" ? "md" : "yaml";
+      const blob = new Blob([fileContent], { type: "text/plain;charset=utf-8" });
+  
+      saveAs(blob, `${document.title.replace(/\s+/g, "_")}.${fileExtension}`);
+    } catch (error) {
+      console.error("Error generating file:", error);
+    }
+  };
+
   if (!document) {
     return (
       <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="50vh">
@@ -71,6 +90,7 @@ const DocumentViewer = () => {
       handleReview={handleReview}
       handleDelete={handleDelete}
       handleEdit={handleEdit}
+      handleDownload={handleDownload}
       isAdmin={accessToken && role === "ADMIN"}
       isAuthor={document && document.author === username}
     />

@@ -7,7 +7,7 @@ const UserMenu = ({ userAuth, accessToken, username, userNavPanel, handleUserNav
   return (
     <div>
       {userAuth && accessToken && username ? (
-        // Logged-in user
+
         <div className="relative" onClick={handleUserNavPanel} onBlur={handleBlur}>
           <button className="w-12 h-12 mt-1">
             <i className="fi fi-rr-user"></i>
@@ -15,7 +15,7 @@ const UserMenu = ({ userAuth, accessToken, username, userNavPanel, handleUserNav
           {userNavPanel && <SidebarPanel />}
         </div>
       ) : (
-        // Not logged in
+
         <div className="flex gap-2">
           <Link className="btn-dark py-2 px-4 md:py-3 md:px-6" to="/login">
             Login

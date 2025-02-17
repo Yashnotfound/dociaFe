@@ -25,7 +25,6 @@ const UserAuthScreen = ({ type }) => {
     e.preventDefault();
     let serverRoute = isLogin ? "/login" : "/signup";
 
-    // Regex validation
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
 
