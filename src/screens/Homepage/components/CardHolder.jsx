@@ -43,12 +43,12 @@ const CardHolder = ({ type }) => {
       {showDropdown && (
         <Box sx={{ mb: 2, display: "flex", justifyContent: "flex-end" }}>
           <FormControl variant="outlined" size="small">
-            <InputLabel id="status-filter-label">Filter</InputLabel>
+            <InputLabel id="status-filter-label">Status</InputLabel>
             <Select
               labelId="status-filter-label"
               value={statusFilter}
               onChange={handleFilterChange}
-              label="Filter"
+              label="filter"
             >
               <MenuItem value="APPROVED">Approved</MenuItem>
               <MenuItem value="PENDING">Pending</MenuItem>

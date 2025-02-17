@@ -1,26 +1,42 @@
-// src/pages/DocumentViewerPage.jsx
 import React from "react";
-import { Typography, Box, CircularProgress, Paper, Chip } from "@mui/material";
 import { useParams } from "react-router-dom";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import MarkdownViewer from "./MarkdownViewer";
-import ApiContractViewer from "./ApiContractViewer";
 import CommentsBar from "./CommentsBar";
-import { Button } from "../../../Shared/components";
+import {
+  Button,
+  Typography,
+  Box,
+  CircularProgress,
+  Paper,
+  Chip
+} from "../../../Shared/components";
+import MarkdownViewer from "./MarkdownViewer";
+import ApiContractViewer from "./ApiContractViewer"
 import { getStatusColor } from "../../../Shared/containers/getStatusColor";
 import documentViewLogic from "../containers/documentViewLogic";
 
 const DocumentViewerPage = () => {
   const { id } = useParams();
-  const { document, handleReview, handleDelete, handleEdit, isAdmin, isAuthor } =
-    documentViewLogic({ id });
+  const {
+    document,
+    handleReview,
+    handleDelete,
+    handleEdit,
+    isAdmin,
+    isAuthor,
+  } = documentViewLogic({ id });
 
   if (!document) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+      >
         <CircularProgress />
       </Box>
     );
@@ -29,18 +45,26 @@ const DocumentViewerPage = () => {
   return (
     <Box padding={2}>
       <div>
-        <Typography variant="h4" gutterBottom style={{ display: "flex", alignItems: "center" }}>
+        <Typography
+          variant="h4"
+          gutterBottom
+          style={{ display: "flex", alignItems: "center" }}
+        >
           <span>{document.title}</span>
           <Chip
             label={document.status}
-            color={
-              getStatusColor(document.status)
-            }
+            color={getStatusColor(document.status)}
             size="small"
             style={{ marginLeft: "10px" }}
           />
         </Typography>
-        <Box display="flex" justifyContent="flex-end" marginTop={2} marginBottom={2} gap={1}>
+        <Box
+          display="flex"
+          justifyContent="flex-end"
+          marginTop={2}
+          marginBottom={2}
+          gap={1}
+        >
           {isAdmin && document.status !== "APPROVED" && (
             <Button
               variant="contained"

@@ -7,6 +7,9 @@ const useComments = (documentId) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { userAuth: { accessToken } = {} } = useContext(UserContext);
+  const [isLogin, SetIsLogin] = useState(false);
+  const [comment, setComment] = useState("");
+
 
   useEffect(() => {
     const loadComments = async () => {
@@ -23,6 +26,17 @@ const useComments = (documentId) => {
     loadComments();
   }, [documentId]);
 
+  useEffect(()=>{
+    SetIsLogin(accessToken!=null)
+  },[accessToken])
+
+  const handleCommentSubmit = async () => {
+    if (!comment.trim()) return;
+
+    await addComment(comment);
+    setComment("");
+  };
+
   const addComment = async (text) => {
     try {
       if(!accessToken){
@@ -36,7 +50,7 @@ const useComments = (documentId) => {
     }
   };
 
-  return { comments, loading, error, addComment };
+  return { comments, loading, error, isLogin, addComment,comment,setComment,handleCommentSubmit };
 };
 
 export default useComments;

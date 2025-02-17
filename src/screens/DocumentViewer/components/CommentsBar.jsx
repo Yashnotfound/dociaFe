@@ -12,19 +12,17 @@ import {
 import SendIcon from "@mui/icons-material/Send";
 import useComments from "../containers/useComments";
 import { Button } from "../../../Shared/components";
-import { UserContext } from "../../../App";
 
 const CommentsBar = ({ documentId }) => {
-  const { comments, loading, error, addComment } = useComments(documentId);
-  const [comment, setComment] = useState("");
-  const { userAuth: { accessToken } = {} } = useContext(UserContext);
-
-  const handleCommentSubmit = async () => {
-    if (!comment.trim()) return;
-
-    await addComment(comment);
-    setComment("");
-  };
+  const {
+    comments,
+    loading,
+    error,
+    isLogin,
+    comment,
+    setComment,
+    handleCommentSubmit,
+  } = useComments(documentId);
 
   return (
     <Paper elevation={3} sx={{ padding: 2, marginTop: 3 }}>
@@ -33,7 +31,7 @@ const CommentsBar = ({ documentId }) => {
       </Typography>
 
       {/* Comment Input */}
-      {accessToken && (
+      {isLogin && (
         <Box display="flex" alignItems="center">
           <TextField
             fullWidth
@@ -68,7 +66,11 @@ const CommentsBar = ({ documentId }) => {
             <ListItem key={c.id} divider>
               <ListItemText
                 primary={c.content}
-                secondary={`${c.author} at ${c.createdAt.split('T')[0] + " " + c.createdAt.split('T')[1].substring(0, 8)}`}
+                secondary={`${c.author} at ${
+                  c.createdAt.split("T")[0] +
+                  " " +
+                  c.createdAt.split("T")[1].substring(0, 8)
+                }`}
                 sx={{ wordWrap: "break-word" }}
               />
             </ListItem>
