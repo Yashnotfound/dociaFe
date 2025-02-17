@@ -1,3 +1,3 @@
-import EditDocumentPage from "./components/EditDocumentPage";
+import EditDocument from "./containers/EditDocument";
 
-export default EditDocumentPage;
+export default EditDocument;

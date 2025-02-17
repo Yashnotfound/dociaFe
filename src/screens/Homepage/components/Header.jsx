@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Paper, Typography, Box } from "@mui/material";
+import { Paper, Typography} from "@mui/material";
 import { motion } from "framer-motion";
 import { UserContext } from "../../../App";
 
@@ -34,7 +34,7 @@ const Header = () => {
 
       {/* Main Title */}
       <Typography variant="h3" sx={{ fontWeight: "bold", letterSpacing: 1 }}>
-        Manage your Docs with <span style={{color: "#ffeb3b", fontSize: 30 }}>Docia</span>.
+        Manage your Docs with <span style={{color: "#ffeb3b", fontSize: 50 }}>Docia</span>.
       </Typography>
 
       <Typography variant="subtitle1" sx={{ marginTop: 1, opacity: 0.9 }}>

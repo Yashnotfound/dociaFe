@@ -13,7 +13,6 @@ export const documentViewLogic = ({ id }) => {
 
   const fetchDocument = async () => {
     try {
-      debugger;
       const data = await callAPI({
         method: "GET",
         path: `/documents/${id}`,

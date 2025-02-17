@@ -1,23 +1,28 @@
-import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate, useParams, Navigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { UserContext } from "../../../App";
 import callAPI from "../../../Shared/utils/api";
+import EditDocumentPage from "../components/EditDocumentPage";
 
-export const editDocument = (documentId) => {
+const EditDocument = () => {
+  const { id: documentId } = useParams();
+  const { userAuth } = useContext(UserContext);
+  const accessToken = userAuth?.accessToken;
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     content: "",
   });
-
   const [docType, setDocType] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
-  const { userAuth } = useContext(UserContext);
-  const accessToken = userAuth?.accessToken;
+
+  if (!accessToken) {
+    return <Navigate to="/login" />;
+  }
 
   useEffect(() => {
     const fetchDocument = async () => {
@@ -33,7 +38,7 @@ export const editDocument = (documentId) => {
           content: data.content || "",
         });
 
-        setDocType(data.type || "");
+        setDocType(data.type || "GENERAL");
       } catch (err) {
         console.error("Error fetching document:", err);
         setError("Failed to fetch document details.");
@@ -61,7 +66,6 @@ export const editDocument = (documentId) => {
     setFormData((prev) => ({ ...prev, content: fileContent }));
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { title, description, content } = formData;
@@ -69,22 +73,17 @@ export const editDocument = (documentId) => {
       setError("All fields are required.");
       return;
     }
-    if (!accessToken) {
-      setError("User not authenticated.");
-      toast.error("Authentication error!");
-      return;
-    }
-    const payload = { title, description, content, type: docType };
+    setLoading(true);
 
     try {
       await callAPI({
         method: "PUT",
         path: `/documents/${documentId}`,
-        payload,
+        payload: { title, description, content, type: docType },
         accessToken,
       });
       toast.success("Document updated successfully!");
-      navigate(`/documents/${documentId}`)
+      navigate(`/documents/${documentId}`);
     } catch (err) {
       setError("There was an issue updating the document.");
       toast.error("Failed to update document!");
@@ -93,7 +92,18 @@ export const editDocument = (documentId) => {
     }
   };
 
-  return { formData, type:docType, loading, error, handleChange, handleEditorChange, onUpload, handleSubmit };
+  return (
+    <EditDocumentPage
+      formData={formData}
+      loading={loading}
+      error={error}
+      handleChange={handleChange}
+      handleEditorChange={handleEditorChange}
+      onUpload={onUpload}
+      handleSubmit={handleSubmit}
+      type={docType}
+    />
+  );
 };
 
-export default editDocument;
+export default EditDocument;

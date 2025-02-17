@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import { getStatusColor } from "../../../Shared/containers/getStatusColor";
 import banner from "../../../assets/images/mountains.jpg";
 import AnimationWrapper from "../../../navigation/hoc/page-animation";
+import { CircularProgress } from "../../../Shared/components";
 
 const CardHolder = ({ type }) => {
   const showDropdown = type === "all-docs" || type === "user";
@@ -30,8 +31,8 @@ const CardHolder = ({ type }) => {
 
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-        <Typography variant="h4" gutterBottom>No docs Found</Typography>
+      <Box display="flex" justifyContent="center" alignItems="center" height="50vh" >
+        <CircularProgress />
       </Box>
     );
   }
@@ -58,7 +59,7 @@ const CardHolder = ({ type }) => {
       )}
 
       {!items.length ? (
-        <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+        <Box display="flex" justifyContent="center" alignItems="center" height="50vh">
           <Typography variant="h4" gutterBottom>No docs Found</Typography>
         </Box>
       ) : (
