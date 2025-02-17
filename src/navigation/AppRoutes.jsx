@@ -1,7 +1,7 @@
 // src/AppRoutes.js
 import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { publicRoutes, privateRoutes } from "../routes/routes";
+import { publicRoutes, privateRoutes } from "./routes";
 import { PublicLayout, PrivateLayout } from "../Layouts";
 import Navbar from "../screens/Navbar";
 import { Toaster } from "react-hot-toast";

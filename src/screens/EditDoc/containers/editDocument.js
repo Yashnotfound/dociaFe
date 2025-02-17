@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { UserContext } from "../../../App";
-import { callAPI } from "../../../Shared/utils/api";
+import callAPI from "../../../Shared/utils/api";
 
 export const editDocument = (documentId) => {
 

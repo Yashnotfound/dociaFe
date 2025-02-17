@@ -1,4 +1,4 @@
-import { callAPI } from "../../../Shared/utils/api";
+import callAPI from "../../../Shared/utils/api";
 
 export const fetchComments = async (documentId) => {
   try {

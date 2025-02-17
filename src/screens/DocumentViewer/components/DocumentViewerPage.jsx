@@ -1,57 +1,22 @@
-import React, { useContext } from "react";
-import { Typography } from "@mui/material";
-import { useParams, useNavigate} from "react-router-dom";
-import { Box, CircularProgress, Paper, Chip } from "@mui/material";
-import { Button } from "../../../Shared/components";
+// src/pages/DocumentViewerPage.jsx
+import React from "react";
+import { Typography, Box, CircularProgress, Paper, Chip } from "@mui/material";
+import { useParams } from "react-router-dom";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { UserContext } from "../../../App";
-import { handleReviewDocument } from "../api/reviewDocumentAPI";
-import {  toast } from "react-hot-toast";
 import MarkdownViewer from "./MarkdownViewer";
 import ApiContractViewer from "./ApiContractViewer";
 import CommentsBar from "./CommentsBar";
-import { callAPI } from "../../../Shared/utils/api";
-import { documentViewLogic } from "../containers/documentViewLogic";
-  
+import { Button } from "../../../Shared/components";
+import { getStatusColor } from "../../../Shared/containers/getStatusColor";
+import documentViewLogic from "../containers/documentViewLogic";
+
 const DocumentViewerPage = () => {
-  debugger;
   const { id } = useParams();
-  const { document, refreshDocument } = documentViewLogic({ id });
-  const { userAuth: { role, accessToken, username } = {} } = useContext(UserContext);
-  const isAdmin = role === "ADMIN";
-  const isAuthor = document && document.author === username;
-  const navigate = useNavigate();
-
-  const handleReview = async (status) => {
-    try {
-      await handleReviewDocument(id, status, accessToken);
-      toast.success(`Document ${status.toLowerCase()} successfully!`);
-      refreshDocument();
-    } catch (error) {
-      toast.error("Failed to update document status!");
-    }
-  };
-
-  const handleEdit = () => {
-    navigate(`/documents/edit/${document.id}`);
-  };
-
-  const deleteHandler = async () => {
-    try {
-      await callAPI({
-        method: "DELETE",
-        path: `/documents/${id}`,
-        accessToken,
-      });
-      toast.success("Document deleted successfully!");
-      setTimeout(() => navigate("/"), 2000);
-    } catch (error) {
-      toast.error("Failed to delete document!");
-    }
-  };
+  const { document, handleReview, handleDelete, handleEdit, isAdmin, isAuthor } =
+    documentViewLogic({ id });
 
   if (!document) {
     return (
@@ -63,30 +28,53 @@ const DocumentViewerPage = () => {
 
   return (
     <Box padding={2}>
-
       <div>
         <Typography variant="h4" gutterBottom style={{ display: "flex", alignItems: "center" }}>
           <span>{document.title}</span>
           <Chip
             label={document.status}
-            color={document.status === "APPROVED" ? "success" : document.status === "REJECTED" ? "error" : "warning"}
+            color={
+              getStatusColor(document.status)
+            }
             size="small"
             style={{ marginLeft: "10px" }}
           />
         </Typography>
         <Box display="flex" justifyContent="flex-end" marginTop={2} marginBottom={2} gap={1}>
-
           {isAdmin && document.status !== "APPROVED" && (
-            <Button variant="contained" color="success" startIcon={<CheckIcon />} onClick={() => handleReview("APPROVED")} label="Approve"/>
+            <Button
+              variant="contained"
+              color="success"
+              startIcon={<CheckIcon />}
+              onClick={() => handleReview("APPROVED")}
+              label="Approve"
+            />
           )}
           {isAdmin && document.status !== "REJECTED" && (
-            <Button variant="contained" color="error" startIcon={<CloseIcon />} onClick={() => handleReview("REJECTED")} label="Reject"/>
+            <Button
+              variant="contained"
+              color="error"
+              startIcon={<CloseIcon />}
+              onClick={() => handleReview("REJECTED")}
+              label="Reject"
+            />
           )}
-
           {isAuthor && (
             <>
-              <Button variant="contained" color="primary" startIcon={<EditIcon />} onClick={handleEdit} label={"Edit"} />
-              <Button variant="contained" color="secondary" startIcon={<DeleteIcon />} onClick={deleteHandler} label={"Delete"} />
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<EditIcon />}
+                onClick={handleEdit}
+                label="Edit"
+              />
+              <Button
+                variant="contained"
+                color="secondary"
+                startIcon={<DeleteIcon />}
+                onClick={handleDelete}
+                label="Delete"
+              />
             </>
           )}
         </Box>
@@ -94,7 +82,10 @@ const DocumentViewerPage = () => {
 
       <Paper elevation={3} sx={{ padding: 2 }}>
         <Typography variant="subtitle1" color="textSecondary" paragraph>
-          {document.author} | {document.createdAt.split('T')[0] + " " + document.createdAt.split('T')[1].substring(0, 8)}
+          {document.author} |{" "}
+          {document.createdAt.split("T")[0] +
+            " " +
+            document.createdAt.split("T")[1].substring(0, 8)}
         </Typography>
         {document.type === "GENERAL" ? (
           <MarkdownViewer markdown={document.content} />

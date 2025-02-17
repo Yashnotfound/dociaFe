@@ -2,6 +2,7 @@ import React from 'react';
 import DefaultButton from '@mui/material/Button';
 
 const Button = ({
+  children,
   label,
   onClick,
   variant = 'contained',
@@ -23,7 +24,7 @@ const Button = ({
       sx={{ ...sx }}
       {...props}
     >
-      {label}
+      {label ||children}
     </DefaultButton>
   );
 };

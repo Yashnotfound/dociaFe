@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
-import { TextField, Button, Box, Typography, Card, CardMedia } from "@mui/material";
+import { TextField, Button, Box, Typography} from "@mui/material";
 import { createDocLogic } from "../containers/createDocLogic";
 import { UserContext } from "../../../App";
 import { Navigate } from "react-router-dom";
 import AnimationWrapper from "../../../navigation/hoc/page-animation";
-import { Toaster } from "react-hot-toast";
 import MarkdownEditor from "../../../Shared/components/CreateAndEdit/MarkdownEditor";
 import UploadYaml from "../../../Shared/components/CreateAndEdit/UploadYaml";
 
@@ -30,7 +29,7 @@ const CreateDocPage = ({ type }) => {
     <AnimationWrapper>
       <Box sx={{ maxWidth: 800, margin: "auto", p: 3 }}>
         <Typography variant="h4" gutterBottom>
-          {document ? "Edit Document" : "Create Document"}
+          {"Create Document"}
         </Typography>
 
         {error && (

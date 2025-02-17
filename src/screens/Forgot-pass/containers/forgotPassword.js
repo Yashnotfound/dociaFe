@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { callAPI } from "../../../Shared/utils/api";
+import callAPI from "../../../Shared/utils/api";
 
 export const forgotPassword = () => {
   const [email, setEmail] = useState("");

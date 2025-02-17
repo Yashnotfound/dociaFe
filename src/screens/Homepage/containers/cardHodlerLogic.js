@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../../App";
-import { callAPI } from "../../../Shared/utils/api";
+import  callAPI from "../../../Shared/utils/api";
 
 export const useCardHolderLogic = ({ type, statusFilter }) => {
   const [documents, setDocuments] = useState([]);

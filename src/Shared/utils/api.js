@@ -8,7 +8,7 @@ const api = axios.create({
   },
 });
 
-export const callAPI = async ({ method = "GET", path, payload = null, accessToken, headers: customHeaders = {} }) => {
+const callAPI = async ({ method = "GET", path, payload = null, accessToken, headers: customHeaders = {} }) => {
   try {
     const response = await api({
       method,
@@ -25,4 +25,5 @@ export const callAPI = async ({ method = "GET", path, payload = null, accessToke
   }
 };
 
-export default api;
+export default callAPI;
+
