@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { Typography } from "@mui/material";
-import { useParams, useNavigate, Navigate, Link } from "react-router-dom";
-import { Box, CircularProgress, Paper, Button, Chip } from "@mui/material";
+import { useParams, useNavigate} from "react-router-dom";
+import { Box, CircularProgress, Paper, Chip } from "@mui/material";
+import { Button } from "../../../Shared/components";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -76,24 +77,16 @@ const DocumentViewerPage = () => {
         <Box display="flex" justifyContent="flex-end" marginTop={2} marginBottom={2} gap={1}>
 
           {isAdmin && document.status !== "APPROVED" && (
-            <Button variant="contained" color="success" startIcon={<CheckIcon />} onClick={() => handleReview("APPROVED")}>
-              Approve
-            </Button>
+            <Button variant="contained" color="success" startIcon={<CheckIcon />} onClick={() => handleReview("APPROVED")} label="Approve"/>
           )}
           {isAdmin && document.status !== "REJECTED" && (
-            <Button variant="contained" color="error" startIcon={<CloseIcon />} onClick={() => handleReview("REJECTED")}>
-              Reject
-            </Button>
+            <Button variant="contained" color="error" startIcon={<CloseIcon />} onClick={() => handleReview("REJECTED")} label="Reject"/>
           )}
 
           {isAuthor && (
             <>
-              <Button variant="contained" color="primary" startIcon={<EditIcon />} onClick={handleEdit}>
-                Edit
-              </Button>
-              <Button variant="contained" color="secondary" startIcon={<DeleteIcon />} onClick={deleteHandler}>
-                Delete
-              </Button>
+              <Button variant="contained" color="primary" startIcon={<EditIcon />} onClick={handleEdit} label={"Edit"} />
+              <Button variant="contained" color="secondary" startIcon={<DeleteIcon />} onClick={deleteHandler} label={"Delete"} />
             </>
           )}
         </Box>

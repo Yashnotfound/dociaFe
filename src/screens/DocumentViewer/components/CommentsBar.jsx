@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import {
   Box,
   TextField,
-  Button,
   List,
   ListItem,
   ListItemText,
@@ -12,6 +11,7 @@ import {
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import useComments from "../containers/useComments";
+import { Button } from "../../../Shared/components";
 import { UserContext } from "../../../App";
 
 const CommentsBar = ({ documentId }) => {
